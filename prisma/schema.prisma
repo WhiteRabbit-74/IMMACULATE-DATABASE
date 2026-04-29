@@ -1,0 +1,184 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String?   @unique
+  name          String?
+  role          String    @default("USER")
+  password      String?
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime  @default(now())
+  accounts      Account[]
+  sessions      Session[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Agency {
+  id             String         @id @default(cuid())
+  name           String
+  slug           String         @unique
+  colorPrimary   String         @default("#00ff00")
+  colorSecondary String         @default("#000000")
+  logoPath       String?
+  description    String?
+  country        String?
+  createdAt      DateTime       @default(now())
+  agents         AgentProfile[]
+  documents      Document[]
+}
+
+model Document {
+  id            String         @id @default(cuid())
+  title         String
+  description   String?
+  year          Int
+  agencyId      String
+  status        String         @default("classified")
+  filePath      String
+  coverPath     String?
+  autoCoverPath String?
+  pageCount     Int?
+  fileSize      Int?
+  latitude      Float?
+  longitude     Float?
+  country       String?
+  isFoia        Boolean        @default(false)
+  foiaNumber    String?
+  operationId   String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  operation     Operation?     @relation(fields: [operationId], references: [id])
+  agency        Agency         @relation(fields: [agencyId], references: [id])
+  agents        AgentProfile[] @relation("DocumentAgents")
+  tags          Tag[]          @relation("DocumentTags")
+  stars         Int            @default(0)
+}
+
+model Tag {
+  id        String     @id @default(cuid())
+  name      String     @unique
+  documents Document[] @relation("DocumentTags")
+}
+
+model Media {
+  id            String   @id @default(cuid())
+  type          String
+  category      String   @default("photo")
+  title         String
+  description   String?
+  filePath      String
+  thumbnailPath String?
+  mimeType      String?
+  fileSize      Int?
+  tags          String?
+  latitude      Float?
+  longitude     Float?
+  country       String?
+  sensor        String?
+  source        String?
+  year          Int?
+  agencyId      String?
+  stars         Int      @default(0)
+  createdAt     DateTime @default(now())
+}
+
+model FoiaRequest {
+  id           String   @id @default(cuid())
+  requesterId  String?
+  name         String
+  email        String
+  organization String?
+  subject      String
+  description  String
+  status       String   @default("pending")
+  adminNotes   String?
+  responseFile String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Operation {
+  id          String     @id @default(cuid())
+  name        String     @unique
+  codename    String
+  description String?
+  startYear   Int?
+  endYear     Int?
+  status      String     @default("active")
+  agency      String?
+  createdAt   DateTime   @default(now())
+  documents   Document[]
+}
+
+model Anomaly {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  date        String
+  latitude    Float
+  longitude   Float
+  country     String?
+  severity    Int      @default(1)
+  witnesses   Int      @default(0)
+  status      String   @default("unverified")
+  objectType  String?
+  source      String?
+  documents   String?
+  createdAt   DateTime @default(now())
+}
+
+model AgentProfile {
+  id             String     @id @default(cuid())
+  codename       String     @unique
+  realName       String?
+  agencyId       String?
+  clearanceLevel String     @default("SECRET")
+  specialization String?
+  status         String     @default("active")
+  bio            String?
+  avatarPath     String?
+  createdAt      DateTime   @default(now())
+  agency         Agency?    @relation(fields: [agencyId], references: [id])
+  documents      Document[] @relation("DocumentAgents")
+}

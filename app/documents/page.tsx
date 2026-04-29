@@ -1,0 +1,368 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { 
+  FileText, Search, Filter, Lock, Unlock, 
+  ChevronRight, Tag, Star, ShieldAlert, 
+  ShieldCheck, Eye, Globe, Target, Users,
+  Box, Zap
+} from "lucide-react";
+import Link from "next/link";
+
+interface Document {
+  id: string;
+  title: string;
+  description?: string;
+  year: number;
+  status: string;
+  agency: { name: string; colorPrimary: string };
+  tags: { name: string }[];
+  stars: number;
+}
+
+interface Agency { id: string; name: string; colorPrimary: string; }
+interface TagItem { id: string; name: string; _count: { documents: number }; }
+
+export default function DocumentsPage() {
+  const [docs, setDocs] = useState<Document[]>([]);
+  const [agencies, setAgencies] = useState<Agency[]>([]);
+  const [tags, setTags] = useState<TagItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("");
+  const [agencyFilter, setAgencyFilter] = useState("");
+  const [tagFilter, setTagFilter] = useState("");
+  const [projectFocus, setProjectFocus] = useState("");
+  const [sortBy, setSortBy] = useState<"date" | "stars">("date");
+
+  const handleStar = async (e: React.MouseEvent, docId: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    try {
+      const res = await fetch(`/api/documents/${docId}/star`, { method: "POST" });
+      if (res.ok) {
+        const data = await res.json();
+        setDocs(prev => prev.map(d => d.id === docId ? { ...d, stars: data.stars } : d));
+      }
+    } catch (err) {}
+  };
+
+  useEffect(() => {
+    fetch("/api/agencies").then((r) => r.json()).then(setAgencies).catch(() => {});
+    fetch("/api/tags").then((r) => r.json()).then(setTags).catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      const params = new URLSearchParams();
+      if (search) params.set("q", search);
+      if (statusFilter) params.set("status", statusFilter);
+      if (agencyFilter) params.set("agencyId", agencyFilter);
+      if (tagFilter) params.set("tag", tagFilter);
+      if (projectFocus) params.set("project", projectFocus);
+      setLoading(true);
+      fetch(`/api/documents?${params}`)
+        .then((r) => r.json())
+        .then((data) => { setDocs(Array.isArray(data) ? data : []); setLoading(false); })
+        .catch(() => setLoading(false));
+    }, 300);
+    return () => clearTimeout(t);
+  }, [search, statusFilter, agencyFilter, tagFilter, projectFocus]);
+
+  const sortedDocs = [...docs].sort((a, b) => {
+    if (sortBy === "stars") return (b.stars || 0) - (a.stars || 0);
+    return 0; // Default order from API
+  });
+
+  const classified = sortedDocs.filter((d) => d.status === "classified");
+  const declassified = sortedDocs.filter((d) => d.status === "declassified");
+
+  return (
+    <div className="flex min-h-screen pt-16">
+      {/* Sidebar Filters */}
+      <aside className="w-64 shrink-0 sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto border-r border-white/5 p-6">
+        <div className="space-y-6">
+          <div>
+            <div className="font-mono text-[10px] text-white/30 uppercase tracking-widest mb-3">Search</div>
+            <div className="relative">
+              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/30" />
+              <input
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="SEARCH..."
+                className="w-full bg-white/5 border border-white/10 rounded-lg pl-8 pr-3 py-2 font-mono text-xs text-white placeholder:text-white/20 focus:outline-none focus:border-[#00ff00]/50 transition-all"
+              />
+            </div>
+          </div>
+
+          <div>
+            <div className="font-mono text-[10px] text-white/30 uppercase tracking-widest mb-3">Sort_Priority</div>
+            <div className="flex flex-col gap-1">
+              <button
+                onClick={() => setSortBy("date")}
+                className={`text-left px-3 py-1.5 rounded font-mono text-[10px] uppercase transition-all ${sortBy === "date" ? "bg-white/10 text-white" : "text-white/40 hover:bg-white/5"}`}
+              >
+                Chronological
+              </button>
+              <button
+                onClick={() => setSortBy("stars")}
+                className={`text-left px-3 py-1.5 rounded font-mono text-[10px] uppercase transition-all flex items-center gap-2 ${sortBy === "stars" ? "bg-yellow-500/10 text-yellow-500" : "text-white/40 hover:bg-white/5"}`}
+              >
+                <Star className="w-3 h-3" />
+                Top Rated
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <div className="font-mono text-[10px] text-white/30 uppercase tracking-widest mb-3">Status</div>
+            <div className="space-y-1">
+              {["", "classified", "declassified"].map((s) => (
+                <button
+                  key={s || "all"}
+                  onClick={() => setStatusFilter(s)}
+                  className={`w-full text-left px-3 py-1.5 rounded font-mono text-xs flex items-center gap-2 transition-all ${
+                    statusFilter === s
+                      ? "bg-white/10 text-white"
+                      : "text-white/40 hover:text-white/70 hover:bg-white/5"
+                  }`}
+                >
+                  {s === "classified" ? (
+                    <Lock className="w-3 h-3 text-red-400" />
+                  ) : s === "declassified" ? (
+                    <Unlock className="w-3 h-3 text-green-400" />
+                  ) : (
+                    <Filter className="w-3 h-3" />
+                  )}
+                  {s || "All Documents"}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <div className="font-mono text-[10px] text-white/30 uppercase tracking-widest mb-3">Project_Focus</div>
+                <div className="space-y-1.5 px-2">
+                  {[
+                    { id: "bluebook", label: "Blue Book Archive", icon: Star, color: "#00ff00" },
+                    { id: "mj12", label: "Majestic-12 Core", icon: ShieldAlert, color: "#ff3333" },
+                    { id: "monarch", label: "Project Monarch", icon: Lock, color: "#aa00ff" },
+                    { id: "gateway", label: "Gateway Process", icon: Unlock, color: "#0088ff" },
+                    { id: "aquarius", label: "Project Aquarius", icon: Star, color: "#00ffaa" },
+                    { id: "stargate", label: "Project Stargate", icon: Eye, color: "#ffaa00" },
+                    { id: "aatip", label: "AATIP Records", icon: ShieldCheck, color: "#00ffff" },
+                    { id: "moondust", label: "Operation Moon Dust", icon: Globe, color: "#ff6600" },
+                    { id: "grudge", label: "Project Grudge", icon: FileText, color: "#ffffff" },
+                    { id: "sign", label: "Project Sign", icon: Target, color: "#00aaff" },
+                    { id: "serpo", label: "Project Serpo", icon: Users, color: "#ffaa00" },
+                    { id: "pounce", label: "Project Pounce", icon: Zap, color: "#ff00ff" },
+                  ].map((p) => (
+                    <button
+                      key={p.id}
+                      onClick={() => setProjectFocus(projectFocus === p.id ? "" : p.id)}
+                      className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg font-mono text-[10px] uppercase transition-all border ${
+                        projectFocus === p.id 
+                          ? "bg-white/10 border-white/20 text-white" 
+                          : "text-white/40 border-transparent hover:bg-white/5 hover:text-white/60"
+                      }`}
+                      style={projectFocus === p.id ? { color: p.color, borderColor: `${p.color}30`, backgroundColor: `${p.color}10` } : {}}
+                    >
+                      <p.icon className="w-3.5 h-3.5" />
+                      {p.label}
+                    </button>
+                  ))}
+                </div>
+          </div>
+
+          <div>
+            <div className="font-mono text-[10px] text-white/30 uppercase tracking-widest mb-3">Agency</div>
+            <div className="space-y-1">
+              <button
+                onClick={() => setAgencyFilter("")}
+                className={`w-full text-left px-3 py-1.5 rounded font-mono text-xs transition-all ${agencyFilter === "" ? "bg-white/10 text-white" : "text-white/40 hover:text-white/70 hover:bg-white/5"}`}
+              >
+                All Agencies
+              </button>
+              {agencies.map((a) => (
+                <button
+                  key={a.id}
+                  onClick={() => setAgencyFilter(a.id)}
+                  className={`w-full text-left px-3 py-1.5 rounded font-mono text-xs flex items-center gap-2 transition-all ${agencyFilter === a.id ? "bg-white/10 text-white" : "text-white/40 hover:text-white/70 hover:bg-white/5"}`}
+                >
+                  <div className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: a.colorPrimary }} />
+                  {a.name}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <div className="font-mono text-[10px] text-white/30 uppercase tracking-widest mb-3">Tags</div>
+            <div className="flex flex-wrap gap-1.5">
+              {tags.slice(0, 15).map((t) => (
+                <button
+                  key={t.id}
+                  onClick={() => setTagFilter(tagFilter === t.name ? "" : t.name)}
+                  className={`font-mono text-[9px] px-2 py-0.5 rounded transition-all ${
+                    tagFilter === t.name
+                      ? "bg-[#00ff00]/20 text-[#00ff00] border border-[#00ff00]/30"
+                      : "bg-white/5 text-white/30 border border-white/5 hover:border-white/20"
+                  }`}
+                >
+                  #{t.name}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      {/* Main Content */}
+      <main className="flex-1 p-8">
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {[...Array(9)].map((_, i) => (
+              <div key={i} className="h-56 bg-white/5 rounded-xl animate-pulse border border-white/5" />
+            ))}
+          </div>
+        ) : (
+          <div className="space-y-12">
+            {!statusFilter || statusFilter === "classified" ? (
+              <DocumentSection
+                title="CLASSIFIED"
+                color="#ff0000"
+                docs={classified}
+                icon={<Lock className="w-4 h-4" />}
+              />
+            ) : null}
+
+            {!statusFilter || statusFilter === "declassified" ? (
+              <DocumentSection
+                title="DECLASSIFIED"
+                color="#00ff00"
+                docs={declassified}
+                icon={<Unlock className="w-4 h-4" />}
+              />
+            ) : null}
+
+            {docs.length === 0 && (
+              <div className="flex flex-col items-center justify-center py-20 border border-dashed border-white/10 rounded-xl">
+                <FileText className="w-12 h-12 text-white/10 mb-4" />
+                <p className="font-mono text-sm text-white/30">NO_RECORDS_FOUND_IN_THIS_SECTOR</p>
+              </div>
+            )}
+          </div>
+        )}
+      </main>
+    </div>
+  );
+}
+
+function DocumentSection({
+  title,
+  color,
+  docs,
+  icon,
+}: {
+  title: string;
+  color: string;
+  docs: Document[];
+  icon: React.ReactNode;
+}) {
+  if (docs.length === 0) return null;
+
+  return (
+    <div>
+      <div className="flex items-center gap-3 mb-6">
+        <div className="flex items-center gap-2" style={{ color }}>
+          {icon}
+          <h2 className="font-mono text-sm font-bold uppercase tracking-[0.2em]">{title}</h2>
+        </div>
+        <div className="h-[1px] flex-1" style={{ backgroundColor: `${color}20` }} />
+        <span className="font-mono text-xs text-white/30">{docs.length} records</span>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <AnimatePresence mode="popLayout">
+          {docs.map((doc) => (
+            <DocCard key={doc.id} doc={doc} onStar={(e) => handleStar(e, doc.id)} />
+          ))}
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+}
+
+function DocCard({ doc, onStar }: { doc: Document, onStar: (e: React.MouseEvent) => void }) {
+  return (
+    <motion.div
+      layout
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      whileHover={{ y: -4 }}
+      className="group relative bg-white/[0.03] border border-white/10 hover:border-white/20 rounded-xl p-5 flex flex-col transition-all cursor-pointer overflow-hidden"
+    >
+      <Link href={`/documents/${doc.id}`} className="absolute inset-0 z-10">
+        <span className="sr-only">View Document</span>
+      </Link>
+
+      <div
+        className="absolute top-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+        style={{ backgroundColor: doc.agency.colorPrimary }}
+      />
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity pointer-events-none"
+        style={{ backgroundColor: doc.agency.colorPrimary }} />
+
+      <div className="flex items-start justify-between mb-3">
+        <div className="font-mono text-[10px] text-white/30">
+          <span style={{ color: doc.agency.colorPrimary }}>{doc.agency.name}</span>
+          {" // "}
+          {doc.year}
+        </div>
+        <span className={`font-mono text-[9px] px-2 py-0.5 rounded flex items-center gap-1 ${
+          doc.status === "classified"
+            ? "text-red-400 bg-red-500/10 border border-red-500/20"
+            : "text-green-400 bg-green-500/10 border border-green-500/20"
+        }`}>
+          {doc.status === "classified" ? <Lock className="w-2 h-2" /> : <Unlock className="w-2 h-2" />}
+          {doc.status.toUpperCase()}
+        </span>
+        <button
+          onClick={onStar}
+          className="relative z-20 flex items-center gap-1.5 px-2 py-0.5 bg-yellow-500/5 hover:bg-yellow-500/10 border border-yellow-500/20 rounded font-mono text-[9px] text-yellow-500 transition-all"
+        >
+          <Star className="w-2.5 h-2.5 fill-yellow-500/20" />
+          {doc.stars || 0}
+        </button>
+      </div>
+
+      <h3 className="font-bold text-sm text-white group-hover:text-white/90 leading-tight line-clamp-2 mb-2 flex-1">
+        {doc.title}
+      </h3>
+
+      {doc.description && (
+        <p className="text-xs text-white/40 line-clamp-2 leading-relaxed mb-3">
+          {doc.description}
+        </p>
+      )}
+
+      <div className="flex flex-wrap gap-1 mb-4">
+        {doc.tags.slice(0, 4).map((t) => (
+          <span key={t.name} className="font-mono text-[8px] bg-white/5 text-white/30 px-1.5 py-0.5 rounded">
+            #{t.name}
+          </span>
+        ))}
+      </div>
+
+      <div
+        className="flex items-center gap-1.5 font-mono text-[10px] text-white/30 group-hover:text-white transition-colors"
+      >
+        <span>ACCESS FILE</span>
+        <ChevronRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+      </div>
+    </motion.div>
+  );
+}
