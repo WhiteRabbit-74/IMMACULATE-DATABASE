@@ -39,6 +39,6 @@ next-env.d.ts
 # /prisma/dev.db-journal
 
 # intelligence assets (local storage)
-# /public/media/uploads
-# /public/media/video
+/public/media/uploads
+/public/media/video
 # /public/database/
