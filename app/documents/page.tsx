@@ -235,6 +235,7 @@ export default function DocumentsPage() {
                 color="#ff0000"
                 docs={classified}
                 icon={<Lock className="w-4 h-4" />}
+                onStar={handleStar}
               />
             ) : null}
 
@@ -244,6 +245,7 @@ export default function DocumentsPage() {
                 color="#00ff00"
                 docs={declassified}
                 icon={<Unlock className="w-4 h-4" />}
+                onStar={handleStar}
               />
             ) : null}
 
@@ -265,11 +267,13 @@ function DocumentSection({
   color,
   docs,
   icon,
+  onStar,
 }: {
   title: string;
   color: string;
   docs: Document[];
   icon: React.ReactNode;
+  onStar: (e: React.MouseEvent, docId: string) => void;
 }) {
   if (docs.length === 0) return null;
 
@@ -287,7 +291,7 @@ function DocumentSection({
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         <AnimatePresence mode="popLayout">
           {docs.map((doc) => (
-            <DocCard key={doc.id} doc={doc} onStar={(e) => handleStar(e, doc.id)} />
+            <DocCard key={doc.id} doc={doc} onStar={(e) => onStar(e, doc.id)} />
           ))}
         </AnimatePresence>
       </div>
