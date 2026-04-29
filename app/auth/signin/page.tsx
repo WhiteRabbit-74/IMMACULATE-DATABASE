@@ -3,7 +3,7 @@
 export const dynamic = "force-dynamic";
 
 import { signIn } from "next-auth/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShieldAlert, Eye, EyeOff, Terminal, Lock, Zap, Scan } from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -17,7 +17,7 @@ const BOOT_LINES = [
   "INTEL ARCHIVE SYSTEM ONLINE.",
 ];
 
-export default function SignInPage() {
+function SignInForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -240,5 +240,18 @@ export default function SignInPage() {
         </div>
       </motion.div>
     </div>
+  );
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#030303] flex items-center justify-center font-mono text-[#00ff00]">
+        <Terminal className="w-8 h-8 animate-pulse mb-4" />
+        <div className="text-xs uppercase tracking-widest">Initialising_Secure_Session...</div>
+      </div>
+    }>
+      <SignInForm />
+    </Suspense>
   );
 }
