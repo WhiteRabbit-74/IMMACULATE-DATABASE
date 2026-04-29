@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default async function DocumentPage({ params }: Props) {
-  let document = null;
+  let document: any = null;
   try {
     document = await prisma.document.findUnique({
       where: { id: params.id },

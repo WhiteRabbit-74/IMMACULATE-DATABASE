@@ -26,7 +26,7 @@ async function getStats() {
     console.error("DASHBOARD_TELEMETRY_OFFLINE", error);
     return { 
       totalDocs: 0, classified: 0, declassified: 0, 
-      totalAgencies: 0, totalMedia: 0, recentDocs: [] 
+      totalAgencies: 0, totalMedia: 0, recentDocs: [] as any[] 
     };
   }
 }
