@@ -5,9 +5,8 @@ import { join } from "path";
 import { existsSync, mkdirSync } from "fs";
 import { auth } from "@/auth";
 
-// Ensure uploads dir exists
+// Upload configuration
 const UPLOAD_DIR = join(process.cwd(), "public", "uploads");
-if (!existsSync(UPLOAD_DIR)) mkdirSync(UPLOAD_DIR, { recursive: true });
 
 export async function GET(req: NextRequest) {
   try {
@@ -50,6 +49,11 @@ export async function POST(req: NextRequest) {
       const formData = await req.formData();
       const file = formData.get("file") as File;
       if (file) {
+        // Safe directory check - will likely fail on Vercel but that's expected for POST
+        if (!existsSync(UPLOAD_DIR)) {
+          try { mkdirSync(UPLOAD_DIR, { recursive: true }); } catch (e) {}
+        }
+
         const bytes = await file.arrayBuffer();
         const buffer = Buffer.from(bytes);
         const ext = file.name.split(".").pop();
