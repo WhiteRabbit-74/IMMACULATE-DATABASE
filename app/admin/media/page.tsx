@@ -83,14 +83,26 @@ export default function AdminMediaRegistry() {
         <div className="flex items-center gap-4">
           <button
             onClick={async () => {
-              const res = await fetch("/api/admin/sync-pdf-libri", { method: "POST" });
-              const data = await res.json();
-              if (data.success) alert(`Synced ${data.syncedCount} new documents!`);
-              else alert("Sync failed");
+              setLoading(true);
+              try {
+                const res = await fetch("/api/media/sync-all", { method: "POST" });
+                const data = await res.json();
+                if (data.success) {
+                  alert(`INTEL_ARCHIVE_UPDATED: ${data.createdCount} new assets registered.`);
+                  fetchMedia();
+                } else {
+                  alert("SYNC_FAILURE: Access Denied or Filesystem locked.");
+                }
+              } catch (e) {
+                alert("CRITICAL_SYNC_ERROR");
+              } finally {
+                setLoading(false);
+              }
             }}
-            className="flex items-center gap-2 px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white/60 font-mono text-xs rounded-xl uppercase tracking-widest transition-all"
+            className="flex items-center gap-2 px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white/60 font-mono text-xs rounded-xl uppercase tracking-widest transition-all disabled:opacity-50"
+            disabled={loading}
           >
-            <RefreshCw className="w-4 h-4" />
+            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
             Sync_Filesystem
           </button>
           <Link
