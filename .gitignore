@@ -35,9 +35,9 @@ yarn-error.log*
 next-env.d.ts
 
 # prisma
-/prisma/dev.db
-/prisma/dev.db-journal
+# /prisma/dev.db
+# /prisma/dev.db-journal
 
 # intelligence assets (local storage)
-/public/media/uploads
-/public/media/video
+# /public/media/uploads
+# /public/media/video

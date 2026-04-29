@@ -6,21 +6,29 @@ import { GlitchTitle } from "@/components/effects/GlitchTitle";
 export const dynamic = "force-dynamic";
 
 async function getStats() {
-  const [totalDocs, classified, declassified, totalAgencies, totalMedia, recentDocs] =
-    await Promise.all([
-      prisma.document.count(),
-      prisma.document.count({ where: { status: "classified" } }),
-      prisma.document.count({ where: { status: "declassified" } }),
-      prisma.agency.count(),
-      prisma.media.count(),
-      prisma.document.findMany({
-        take: 5,
-        orderBy: { createdAt: "desc" },
-        include: { agency: true },
-      }),
-    ]);
+  try {
+    const [totalDocs, classified, declassified, totalAgencies, totalMedia, recentDocs] =
+      await Promise.all([
+        prisma.document.count(),
+        prisma.document.count({ where: { status: "classified" } }),
+        prisma.document.count({ where: { status: "declassified" } }),
+        prisma.agency.count(),
+        prisma.media.count(),
+        prisma.document.findMany({
+          take: 5,
+          orderBy: { createdAt: "desc" },
+          include: { agency: true },
+        }),
+      ]);
 
-  return { totalDocs, classified, declassified, totalAgencies, totalMedia, recentDocs };
+    return { totalDocs, classified, declassified, totalAgencies, totalMedia, recentDocs };
+  } catch (error) {
+    console.error("DASHBOARD_TELEMETRY_OFFLINE", error);
+    return { 
+      totalDocs: 0, classified: 0, declassified: 0, 
+      totalAgencies: 0, totalMedia: 0, recentDocs: [] 
+    };
+  }
 }
 
 export default async function AdminDashboard() {
