@@ -94,7 +94,7 @@ export default function AnomaliesPage() {
   };
 
   const filtered = filter
-    ? anomalies.filter((a) => a.status === filter)
+    ? anomalies.filter((a: Anomaly) => a.status === filter)
     : anomalies;
 
   const inputClass =
@@ -144,29 +144,29 @@ export default function AnomaliesPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   <div className="lg:col-span-2">
                     <label className="font-mono text-[10px] text-white/30 uppercase tracking-widest block mb-1.5">Title *</label>
-                    <input value={form.title} onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))} placeholder="INCIDENT DESIGNATION..." className={inputClass} required />
+                    <input value={form.title} onChange={(e) => setForm((f: any) => ({ ...f, title: e.target.value }))} placeholder="INCIDENT DESIGNATION..." className={inputClass} required />
                   </div>
                   <div>
                     <label className="font-mono text-[10px] text-white/30 uppercase tracking-widest block mb-1.5">Date *</label>
-                    <input type="date" value={form.date} onChange={(e) => setForm((f) => ({ ...f, date: e.target.value }))} className={inputClass} required />
+                    <input type="date" value={form.date} onChange={(e) => setForm((f: any) => ({ ...f, date: e.target.value }))} className={inputClass} required />
                   </div>
                   <div>
                     <label className="font-mono text-[10px] text-white/30 uppercase tracking-widest block mb-1.5">Latitude *</label>
-                    <input value={form.latitude} onChange={(e) => setForm((f) => ({ ...f, latitude: e.target.value }))} placeholder="e.g. 36.0544" className={inputClass} required />
+                    <input value={form.latitude} onChange={(e) => setForm((f: any) => ({ ...f, latitude: e.target.value }))} placeholder="e.g. 36.0544" className={inputClass} required />
                   </div>
                   <div>
                     <label className="font-mono text-[10px] text-white/30 uppercase tracking-widest block mb-1.5">Longitude *</label>
-                    <input value={form.longitude} onChange={(e) => setForm((f) => ({ ...f, longitude: e.target.value }))} placeholder="e.g. -114.9816" className={inputClass} required />
+                    <input value={form.longitude} onChange={(e) => setForm((f: any) => ({ ...f, longitude: e.target.value }))} placeholder="e.g. -114.9816" className={inputClass} required />
                   </div>
                   <div>
                     <label className="font-mono text-[10px] text-white/30 uppercase tracking-widest block mb-1.5">Country</label>
-                    <input value={form.country} onChange={(e) => setForm((f) => ({ ...f, country: e.target.value }))} placeholder="USA" className={inputClass} />
+                    <input value={form.country} onChange={(e) => setForm((f: any) => ({ ...f, country: e.target.value }))} placeholder="USA" className={inputClass} />
                   </div>
                   <div>
                     <label className="font-mono text-[10px] text-white/30 uppercase tracking-widest block mb-1.5">Object Type</label>
                     <div className="relative">
-                      <select value={form.objectType} onChange={(e) => setForm((f) => ({ ...f, objectType: e.target.value }))} className={`${inputClass} appearance-none`}>
-                        {OBJECT_TYPES.map((t) => <option key={t} value={t}>{t.toUpperCase()}</option>)}
+                      <select value={form.objectType} onChange={(e) => setForm((f: any) => ({ ...f, objectType: e.target.value }))} className={`${inputClass} appearance-none`}>
+                        {OBJECT_TYPES.map((t: string) => <option key={t} value={t}>{t.toUpperCase()}</option>)}
                       </select>
                       <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30 pointer-events-none" />
                     </div>
@@ -174,23 +174,23 @@ export default function AnomaliesPage() {
                   <div>
                     <label className="font-mono text-[10px] text-white/30 uppercase tracking-widest block mb-1.5">Status</label>
                     <div className="relative">
-                      <select value={form.status} onChange={(e) => setForm((f) => ({ ...f, status: e.target.value }))} className={`${inputClass} appearance-none`}>
-                        {STATUSES.map((s) => <option key={s} value={s}>{s.toUpperCase()}</option>)}
+                      <select value={form.status} onChange={(e) => setForm((f: any) => ({ ...f, status: e.target.value }))} className={`${inputClass} appearance-none`}>
+                        {STATUSES.map((s: string) => <option key={s} value={s}>{s.toUpperCase()}</option>)}
                       </select>
                       <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30 pointer-events-none" />
                     </div>
                   </div>
                   <div>
                     <label className="font-mono text-[10px] text-white/30 uppercase tracking-widest block mb-1.5">Severity (1–5)</label>
-                    <input type="number" min="1" max="5" value={form.severity} onChange={(e) => setForm((f) => ({ ...f, severity: e.target.value }))} className={inputClass} />
+                    <input type="number" min="1" max="5" value={form.severity} onChange={(e) => setForm((f: any) => ({ ...f, severity: e.target.value }))} className={inputClass} />
                   </div>
                   <div>
                     <label className="font-mono text-[10px] text-white/30 uppercase tracking-widest block mb-1.5">Witnesses</label>
-                    <input type="number" min="0" value={form.witnesses} onChange={(e) => setForm((f) => ({ ...f, witnesses: e.target.value }))} className={inputClass} />
+                    <input type="number" min="0" value={form.witnesses} onChange={(e) => setForm((f: any) => ({ ...f, witnesses: e.target.value }))} className={inputClass} />
                   </div>
                   <div className="lg:col-span-3">
                     <label className="font-mono text-[10px] text-white/30 uppercase tracking-widest block mb-1.5">Description</label>
-                    <textarea value={form.description} onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))} rows={3} className={`${inputClass} resize-none`} placeholder="Incident description, witness accounts, sensor data..." />
+                    <textarea value={form.description} onChange={(e) => setForm((f: any) => ({ ...f, description: e.target.value }))} rows={3} className={`${inputClass} resize-none`} placeholder="Incident description, witness accounts, sensor data..." />
                   </div>
                 </div>
                 <div className="flex justify-end mt-6">
@@ -214,7 +214,7 @@ export default function AnomaliesPage() {
         {/* Status Filter */}
         <div className="flex items-center gap-2 mb-6">
           <span className="font-mono text-[10px] text-white/30 uppercase tracking-widest">Filter:</span>
-          {["", ...STATUSES].map((s) => (
+          {["", ...STATUSES].map((s: string) => (
             <button
               key={s || "all"}
               onClick={() => setFilter(s)}

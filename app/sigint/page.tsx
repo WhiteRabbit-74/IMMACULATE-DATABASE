@@ -267,12 +267,12 @@ export default function SigintPage() {
                   { label: "INTERCEPTS", value: intercepts.length, color: "#00ff00" },
                   {
                     label: "FLASH",
-                    value: intercepts.filter((i) => i.priority === "FLASH").length,
+                    value: intercepts.filter((i: Intercept) => i.priority === "FLASH").length,
                     color: "#ff3333",
                   },
                   {
                     label: "URGENT",
-                    value: intercepts.filter((i) => i.priority === "URGENT").length,
+                    value: intercepts.filter((i: Intercept) => i.priority === "URGENT").length,
                     color: "#ff8800",
                   },
                   {
@@ -280,7 +280,7 @@ export default function SigintPage() {
                     value: Math.floor(intercepts.length * 0.7),
                     color: "#0088ff",
                   },
-                ].map((stat) => (
+                ].map((stat: any) => (
                   <div
                     key={stat.label}
                     className="bg-white/5 rounded-xl p-3 border border-white/5"

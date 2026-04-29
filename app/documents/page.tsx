@@ -201,7 +201,7 @@ export default function DocumentsPage() {
           <div>
             <div className="font-mono text-[10px] text-white/30 uppercase tracking-widest mb-3">Tags</div>
             <div className="flex flex-wrap gap-1.5">
-              {tags.slice(0, 15).map((t) => (
+              {tags.slice(0, 15).map((t: TagItem) => (
                 <button
                   key={t.id}
                   onClick={() => setTagFilter(tagFilter === t.name ? "" : t.name)}
@@ -354,7 +354,7 @@ function DocCard({ doc, onStar }: { doc: Document, onStar: (e: React.MouseEvent)
       )}
 
       <div className="flex flex-wrap gap-1 mb-4">
-        {doc.tags.slice(0, 4).map((t) => (
+        {doc.tags.slice(0, 4).map((t: any) => (
           <span key={t.name} className="font-mono text-[8px] bg-white/5 text-white/30 px-1.5 py-0.5 rounded">
             #{t.name}
           </span>

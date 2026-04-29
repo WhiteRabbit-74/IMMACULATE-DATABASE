@@ -1189,7 +1189,7 @@ export default function ProjectDetailPage() {
           </div>
           <p className="text-white/60 text-sm leading-relaxed max-w-2xl font-light">{project.overview}</p>
           <div className="flex flex-wrap gap-2 mt-4">
-            {project.tags.map((t) => (
+            {project.tags.map((t: string) => (
               <span key={t} className="font-mono text-[9px] bg-white/5 text-white/30 px-2 py-0.5 rounded border border-white/5">#{t}</span>
             ))}
           </div>

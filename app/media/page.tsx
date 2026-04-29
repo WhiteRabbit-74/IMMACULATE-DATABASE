@@ -79,7 +79,7 @@ export default function MediaPage() {
   }, [category]);
 
   const filtered = [...media]
-    .filter((m) => {
+    .filter((m: MediaItem) => {
       const matchesSearch = !search || 
         m.title.toLowerCase().includes(search.toLowerCase()) ||
         m.tags?.toLowerCase().includes(search.toLowerCase());
@@ -251,7 +251,7 @@ export default function MediaPage() {
 
                   {lightbox.tags && (
                     <div className="flex flex-wrap gap-1.5 mt-2">
-                      {lightbox.tags.split(",").map((t) => t.trim()).filter(Boolean).map((t) => (
+                      {lightbox.tags.split(",").map((t: string) => t.trim()).filter(Boolean).map((t: string) => (
                         <span key={t} className="font-mono text-[9px] bg-white/5 text-white/40 px-2 py-0.5 rounded border border-white/5">
                           #{t}
                         </span>

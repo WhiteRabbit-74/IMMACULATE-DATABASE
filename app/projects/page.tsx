@@ -50,7 +50,7 @@ export default function ProjectsPage() {
       });
   }, []);
 
-  const filtered = projects.filter((p) => {
+  const filtered = projects.filter((p: any) => {
     const matchSearch = !search || p.name.toLowerCase().includes(search.toLowerCase()) || p.description.toLowerCase().includes(search.toLowerCase()) || p.tags.some((t: string) => t.includes(search.toLowerCase()));
     const matchClass = classFilter === "All" || p.classification === classFilter;
     return matchSearch && matchClass;
@@ -79,7 +79,7 @@ export default function ProjectsPage() {
             { label: "Total Programs", value: projects.length, color: "#00ff00" },
             { label: "Declassified", value: projects.filter((p: any) => p.classification === "DECLASSIFIED").length, color: "#00ff00" },
             { label: "Still Classified", value: projects.filter((p: any) => p.classification !== "DECLASSIFIED").length, color: "#ff3333" },
-          ].map((s) => (
+          ].map((s: any) => (
             <div key={s.label} className="bg-white/[0.03] border border-white/10 rounded-xl p-4">
               <div className="font-mono text-3xl font-black" style={{ color: s.color }}>{s.value}</div>
               <div className="font-mono text-[10px] text-white/30 uppercase tracking-widest mt-1">{s.label}</div>
@@ -138,7 +138,7 @@ export default function ProjectsPage() {
                     <p className="text-xs text-white/40 leading-relaxed line-clamp-3 mb-4 flex-1 font-light">{project.description}</p>
 
                     <div className="flex flex-wrap gap-1 mb-4">
-                      {project.tags.slice(0, 4).map((t) => (
+                      {project.tags.slice(0, 4).map((t: string) => (
                         <span key={t} className="font-mono text-[8px] bg-white/5 text-white/30 px-1.5 py-0.5 rounded">#{t}</span>
                       ))}
                     </div>

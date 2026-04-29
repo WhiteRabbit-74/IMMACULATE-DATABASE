@@ -116,7 +116,7 @@ export default function EbePage() {
              </div>
              
              <div className="space-y-2">
-                {EBE_TYPES.map(ebe => (
+                {EBE_TYPES.map((ebe: any) => (
                   <button
                     key={ebe.id}
                     onClick={() => setSelected(ebe)}
