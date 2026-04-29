@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import path from "path";
 
+// Secure Vault Access - WhiteRabbit-74
 // Failsafe: Default to absolute path for local SQLite in public directory if DATABASE_URL is missing
 // Files in public/ are guaranteed to be available at runtime on Vercel
 const dbPath = path.join(process.cwd(), "public", "database", "dev.db");
