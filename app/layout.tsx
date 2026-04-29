@@ -8,6 +8,7 @@ import { RadarBackground } from "@/components/3d/RadarBackground";
 import { TerminalLoader } from "@/components/shared/TerminalLoader";
 import { AdminFloatingButton } from "@/components/layout/AdminFloatingButton";
 import { validateEnv } from "@/lib/env-check";
+import { Analytics } from '@vercel/analytics/next';
 
 // Esegui la validazione delle variabili d'ambiente in fase di boot
 validateEnv();
@@ -43,6 +44,7 @@ export default function RootLayout({
           <AdminFloatingButton />
           <main className="min-h-screen pt-16 relative z-0">{children}</main>
         </Providers>
+        <Analytics />
       </body>
     </html>
   );
