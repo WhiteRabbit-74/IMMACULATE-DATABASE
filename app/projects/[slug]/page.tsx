@@ -1200,7 +1200,7 @@ export default function ProjectDetailPage() {
         {/* Key Facts */}
         <Section title="KEY FACTS" icon={<Shield className="w-4 h-4" />} open={expandedSection === "facts"} onToggle={() => setExpandedSection(expandedSection === "facts" ? null : "facts")}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-            {project.keyFacts.map((fact, i) => (
+            {project.keyFacts.map((fact: string, i: number) => (
               <div key={i} className="flex items-start gap-2 font-mono text-xs text-white/60 py-2 border-b border-white/5">
                 <span className="text-[#00ff00]/40 shrink-0">›</span>{fact}
               </div>
@@ -1211,7 +1211,7 @@ export default function ProjectDetailPage() {
         {/* Full Description */}
         <Section title="FULL DOSSIER" icon={<FileText className="w-4 h-4" />} open={expandedSection === "overview"} onToggle={() => setExpandedSection(expandedSection === "overview" ? null : "overview")}>
           <div className="space-y-4">
-            {project.fullDescription.map((para, i) => (
+            {project.fullDescription.map((para: string, i: number) => (
               <motion.p key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.05 }}
                 className="text-sm text-white/60 leading-relaxed font-light border-l-2 border-white/5 pl-4 hover:border-white/20 transition-colors">
                 {para}
@@ -1224,7 +1224,7 @@ export default function ProjectDetailPage() {
         {project.images.length > 0 && (
           <Section title="VISUAL INTELLIGENCE" icon={<Shield className="w-4 h-4" />} open={expandedSection === "images"} onToggle={() => setExpandedSection(expandedSection === "images" ? null : "images")}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {project.images.map((img, i) => (
+              {project.images.map((img: any, i: number) => (
                 <div key={i} className="rounded-xl overflow-hidden border border-white/10 bg-black/40 group/img relative">
                   <img 
                     src={img.url} 
@@ -1249,7 +1249,7 @@ export default function ProjectDetailPage() {
         {/* Timeline */}
         <Section title="TIMELINE" icon={<Calendar className="w-4 h-4" />} open={expandedSection === "timeline"} onToggle={() => setExpandedSection(expandedSection === "timeline" ? null : "timeline")}>
           <div className="space-y-3">
-            {project.timeline.map((item, i) => (
+            {project.timeline.map((item: any, i: number) => (
               <div key={i} className="flex items-start gap-4">
                 <span className="font-mono text-sm font-bold shrink-0 w-12" style={{ color: classColor }}>{item.year}</span>
                 <div className="flex items-start gap-3 flex-1">
@@ -1264,7 +1264,7 @@ export default function ProjectDetailPage() {
         {/* Key Figures */}
         <Section title="KEY PERSONNEL" icon={<Building2 className="w-4 h-4" />} open={expandedSection === "people"} onToggle={() => setExpandedSection(expandedSection === "people" ? null : "people")}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-            {project.keyFigures.map((fig, i) => (
+            {project.keyFigures.map((fig: string, i: number) => (
               <div key={i} className="flex items-center gap-2 font-mono text-xs text-white/60 py-2 border-b border-white/5">
                 <span className="text-amber-400/60 shrink-0">›</span>{fig}
               </div>
@@ -1278,7 +1278,7 @@ export default function ProjectDetailPage() {
             <ExternalLink className="w-3.5 h-3.5" /> Primary Source Documents
           </div>
           <div className="space-y-2">
-            {project.relatedDocs.map((doc, i) => (
+            {project.relatedDocs.map((doc: any, i: number) => (
               <a key={i} href={doc.url} target="_blank" rel="noopener noreferrer"
                 className="flex items-center gap-3 font-mono text-xs text-white/50 hover:text-[#00ff00] py-3 px-4 rounded-xl hover:bg-[#00ff00]/5 transition-all group border border-white/5 hover:border-[#00ff00]/20">
                 <div className="flex flex-col">
