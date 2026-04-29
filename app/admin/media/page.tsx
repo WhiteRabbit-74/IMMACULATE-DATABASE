@@ -91,7 +91,7 @@ export default function AdminMediaRegistry() {
                   alert(`INTEL_ARCHIVE_UPDATED: ${data.createdCount} new assets registered.`);
                   fetchMedia();
                 } else {
-                  alert("SYNC_FAILURE: Access Denied or Filesystem locked.");
+                  alert(`SYNC_FAILURE: ${data.error}\nDetails: ${data.details || "None"}`);
                 }
               } catch (e) {
                 alert("CRITICAL_SYNC_ERROR");
