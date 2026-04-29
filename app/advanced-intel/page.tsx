@@ -123,6 +123,12 @@ const UFO_DATA = [
   { name: "Black Cross", class: "COMING SOON", speed: "UNKNOWN", gForce: "UNKNOWN", fuel: "Spatial Warp", img: "/media/foto/UFO LEAK/LEAK7.avif" },
 ];
 
+const SHADOW_TEXT_DATA = [
+  { id: "ST-09-A", title: "Redacted Stargate Memo", recovery: 84, snippet: "The subject successfully [REDACTED] through the [REDACTED] using remote viewing protocols." },
+  { id: "ST-12-B", title: "Anomalous Site-4 Survey", recovery: 62, snippet: "Underground structure at [REDACTED] exhibits non-terrestrial [REDACTED] signatures." },
+  { id: "ST-04-C", title: "EBE Communication Log", recovery: 45, snippet: "Biometric feedback suggests [REDACTED] is not the primary [REDACTED] of the craft." },
+];
+
 const ADVANCED_TOOLS = [
   { 
     id: "stargate", 
