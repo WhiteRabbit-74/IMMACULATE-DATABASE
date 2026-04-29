@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { TimelineClient } from "@/components/timeline/TimelineClient";
 
+export const dynamic = "force-dynamic";
+
 export default async function TimelinePage() {
   const documents = await prisma.document.findMany({
     include: { agency: true, tags: true },

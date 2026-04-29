@@ -3,6 +3,8 @@ import Link from "next/link";
 import { FileText, Image, Building2, Upload, TrendingUp, Lock, Unlock, Clock, Shield, Terminal, Activity } from "lucide-react";
 import { GlitchTitle } from "@/components/effects/GlitchTitle";
 
+export const dynamic = "force-dynamic";
+
 async function getStats() {
   const [totalDocs, classified, declassified, totalAgencies, totalMedia, recentDocs] =
     await Promise.all([
