@@ -24,7 +24,7 @@ export default function WorkspaceRedirectPage() {
         Transmitting_to_Media_Vault_Control...
       </div>
       <div className="text-[10px] text-white/20 mt-2 uppercase">
-        Sector_Redirect: 0x47_WORKSPACE -> 0xADMIN_MEDIA
+        Sector_Redirect: 0x47_WORKSPACE {"->"} 0xADMIN_MEDIA
       </div>
     </div>
   );
