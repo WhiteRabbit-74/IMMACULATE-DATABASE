@@ -64,9 +64,19 @@ export default function DocumentsPage() {
       if (projectFocus) params.set("project", projectFocus);
       setLoading(true);
       fetch(`/api/documents?${params}`)
-        .then((r) => r.json())
-        .then((data) => { setDocs(Array.isArray(data) ? data : []); setLoading(false); })
-        .catch(() => setLoading(false));
+        .then(async (r) => {
+          if (!r.ok) throw new Error("VAULT_ACCESS_DENIED");
+          return r.json();
+        })
+        .then((data) => { 
+          setDocs(Array.isArray(data) ? data : []); 
+          setLoading(false); 
+        })
+        .catch((err) => {
+          console.error("SECURE_FETCH_ERROR:", err);
+          setDocs([]);
+          setLoading(false);
+        });
     }, 300);
     return () => clearTimeout(t);
   }, [search, statusFilter, agencyFilter, tagFilter, projectFocus]);
