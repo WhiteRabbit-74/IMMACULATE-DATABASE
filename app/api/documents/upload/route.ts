@@ -23,7 +23,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Unauthorized: Insufficient clearance" }, { status: 401 });
     }
 
-    const formData = await req.formData();
+    try {
+      const formData = await req.formData();
 
     const file = formData.get("file") as File | null;
     const cover = formData.get("cover") as File | null;
