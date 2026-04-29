@@ -25,6 +25,7 @@ export const metadata: Metadata = {
 };
 
 import { CRTOverlay } from "@/components/effects/CRTOverlay";
+import { Analytics } from "@vercel/analytics/next";
 
 export default function RootLayout({
   children,
@@ -43,6 +44,7 @@ export default function RootLayout({
           <AdminFloatingButton />
           <main className="min-h-screen pt-16 relative z-0">{children}</main>
         </Providers>
+        <Analytics />
       </body>
     </html>
   );
