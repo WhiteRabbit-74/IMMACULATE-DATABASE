@@ -41,3 +41,4 @@ next-env.d.ts
 # intelligence assets (local storage)
 # /public/media/uploads
 # /public/media/video
+# /public/database/

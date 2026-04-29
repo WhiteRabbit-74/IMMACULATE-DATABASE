@@ -1,8 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 import path from "path";
 
-// Failsafe: Default to absolute path for local SQLite if DATABASE_URL is missing
-const dbPath = path.join(process.cwd(), "prisma", "dev.db");
+// Failsafe: Default to absolute path for local SQLite in public directory if DATABASE_URL is missing
+// Files in public/ are guaranteed to be available at runtime on Vercel
+const dbPath = path.join(process.cwd(), "public", "database", "dev.db");
 const dbUrl = process.env.DATABASE_URL || `file:${dbPath}`;
 
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
