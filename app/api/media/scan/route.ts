@@ -16,18 +16,25 @@ export async function GET() {
 
     const localFiles: string[] = [];
 
-    // Helper to scan directory recursively or just 1 level
+    // Helper to scan directory recursively
     const scanDir = async (dirPath: string, basePath: string) => {
       try {
         const fullPath = path.join(publicDir, dirPath);
         const entries = await fs.readdir(fullPath, { withFileTypes: true });
         for (const entry of entries) {
-          if (entry.isFile()) {
-            localFiles.push(`${basePath}/${entry.name}`);
+          const entryPath = path.join(dirPath, entry.name);
+          const entryBasePath = path.join(basePath, entry.name);
+          
+          if (entry.isDirectory()) {
+            await scanDir(entryPath, entryBasePath);
+          } else if (entry.isFile()) {
+            // Convert backslashes to forward slashes for web compatibility
+            const webPath = entryBasePath.replace(/\\/g, "/");
+            localFiles.push(webPath.startsWith("/") ? webPath : `/${webPath}`);
           }
         }
       } catch (e) {
-        // Directory might not exist, ignore
+        // Directory might not exist or be inaccessible, ignore
       }
     };
 
