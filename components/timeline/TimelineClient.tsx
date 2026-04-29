@@ -51,6 +51,23 @@ export function TimelineClient({ documents }: Props) {
   const activeYear = selectedYear ?? years[sliderIndex];
   const activeDocs = byYear[activeYear] ?? [];
 
+  if (years.length === 0) {
+    return (
+      <div className="min-h-screen bg-[#030303] flex items-center justify-center p-6">
+        <div className="text-center space-y-4 max-w-md">
+          <Calendar className="w-12 h-12 text-[#00ff00]/20 mx-auto" />
+          <h2 className="font-mono text-xl text-white uppercase font-black italic">Temporal_Vault_Empty</h2>
+          <p className="font-mono text-xs text-white/40 leading-relaxed">
+            The chronological archive has no records currently indexed. Please verify database connection or administrator clearance.
+          </p>
+          <Link href="/" className="inline-block font-mono text-[10px] text-[#00ff00] border border-[#00ff00]/30 px-4 py-2 rounded-lg hover:bg-[#00ff00]/10 transition-all uppercase">
+            Return_to_Home
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   const MIN_YEAR = years[0];
   const MAX_YEAR = years[years.length - 1];
 

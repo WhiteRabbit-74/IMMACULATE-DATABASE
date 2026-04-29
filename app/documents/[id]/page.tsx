@@ -9,10 +9,15 @@ interface Props {
 }
 
 export default async function DocumentPage({ params }: Props) {
-  const document = await prisma.document.findUnique({
-    where: { id: params.id },
-    include: { agency: true, tags: true },
-  });
+  let document = null;
+  try {
+    document = await prisma.document.findUnique({
+      where: { id: params.id },
+      include: { agency: true, tags: true },
+    });
+  } catch (error) {
+    console.error("DOCUMENT_FETCH_ERROR", error);
+  }
 
   if (!document) notFound();
 
