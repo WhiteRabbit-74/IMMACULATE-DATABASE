@@ -1,67 +1,69 @@
 # 🛡️ IMMACULATE DATABASE
 ### The Citizen Intelligence Platform for UAP Disclosure
 
-![Project Status](https://img.shields.io/badge/Status-Operational-green?style=for-the-badge)
-![Security Level](https://img.shields.io/badge/Clearance-Level_5-red?style=for-the-badge)
-![Tech Stack](https://img.shields.io/badge/Tech-Next.js_|_Prisma_|_SQLite-blue?style=for-the-badge)
+![Project Status](https://img.shields.io/badge/Status-Alpha_Phase-orange?style=for-the-badge)
+![Security Level](https://img.shields.io/badge/Clearance-Level_5_//_Beyond_Black-red?style=for-the-badge)
+![Deployment](https://img.shields.io/badge/Vercel-Operational-green?style=for-the-badge)
 
-**IMMACULATE DATABASE** is an open-source forensic archive and tactical intelligence platform dedicated to the identification, classification, and analysis of Unidentified Aerial Phenomena (UAP) and Non-Human Intelligence (NHI).
+**IMMACULATE DATABASE** is a next-generation forensic intelligence hub and decentralized archive designed to catalog, analyze, and visualize Unidentified Aerial Phenomena (UAP) data and Non-Human Intelligence (NHI) documentation. 
 
-## 🛸 Why This Project Exists
-The era of secrecy is over. As citizens, we have a fundamental **Right to Know** about the reality of NHI and the advanced technologies operating in our airspace. This platform serves as a decentralized "Intelligence Vault" to:
-- Document whistleblower testimonies (Lazar, Grusch, Fravor, etc.).
-- Track the "Agency Nexus" (DOE, NRO, MJ-12) and their involvement in legacy programs.
-- Provide a high-fidelity visual archive of leaked forensic evidence (Gimbal, Tic-Tac, GoFast).
-
-## 🛠️ Key Research Areas (Help Needed)
-The platform is currently focused on three critical dossiers that require massive community collaboration to be fully "seized" and verified:
-- **Document Registry & Agency Nexus**: Mapping the chain of custody for classified files across the DOE, NRO, and private contractors.
-- **Classified Project Archives**: Building declassified dossiers on SAPs (Special Access Programs) like AATIP, Solar Warden, and Project Blue Book.
-- **UFO/EBE Classification**: Cataloging identified craft morphologies and recovered NHI biological markers.
-
-## 🚀 Current Features
-- **Forensic Media Archive**: A synchronized registry of UAP leaks with official technical descriptions.
-- **Whistleblower Veracity Matrix**: Triage and credibility analysis of high-clearance subjects (Lazar, Grusch, etc.).
-- **Advanced Intel Tools**: Functional modules for Patent Secrecy, Alien Linguistics, and Geospatial Heatmaps.
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js 18.x or higher
-- Git
-
-### Installation
-1. **Clone the Vault**
-   ```bash
-   git clone https://github.com/WhiteRabbit-74/IMMACULATE-DATABASE.git
-   cd IMMACULATE-DATABASE
-   ```
-
-2. **Install Dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Initialize Database**
-   ```bash
-   npx prisma generate
-   npx prisma db push
-   ```
-
-4. **Launch Local Intelligence Ops**
-   ```bash
-   npm run dev
-   ```
-   Open `http://localhost:3000` to access the interface.
-
-## 🤝 How to Contribute
-I am a solo developer building this platform for the community. I need help in the following areas:
-- **Data Researchers**: To help populate the **Document Registry** and **Project Archives** with verified sources.
-- **Intelligence Analysts**: To categorize **UFO/EBE Types** based on visual signatures and whistleblower data.
-- **3D/Frontend Developers**: To build interactive reconstructions of identified craft.
-
-## ⚖️ License
-This project is open-source. Information belongs to the people. 🛡️🛰️
+This platform bridges the gap between raw whistleblower leaks and academic-grade forensic analysis, providing the community with tools to map the "Agency Nexus" and verify the chain of custody of humanity's most sensitive secrets.
 
 ---
+
+## 🛸 Project Objectives
+The mission of **IMMACULATE DATABASE** is to end the era of illegal secrecy through structured transparency.
+- **Indexing the Unseen**: Digitizing and cataloging decades of FOIA releases and whistleblower documents.
+- **Forensic Visualization**: Using 3D reconstructions and telemetry data to analyze UAP flight dynamics.
+- **Geospatial Tracking**: Mapping worldwide anomalies to identify patterns of NHI activity.
+- **Democratic Disclosure**: Providing an open-source framework for citizens to contribute to the global archive.
+
+---
+
+## 🚀 Core Features (ALPHA)
+- **Forensic Document Archive**: A high-fidelity interface for browsing 80+ classified records (Majestic-12, Blue Book, etc.).
+- **UAP 3D Matrix**: Interactive STL-based 3D visualization of identified craft morphologies (Saucer, Tic-Tac).
+- **Tactical Anomaly Map**: Geospatial heatmap tracking confirmed sightings and military encounters.
+- **Media Vault**: Verified photographic and video evidence (Gimbal, GoFast, Flir1) with official metadata.
+- **Neural Rating System**: Single-star binary veracity tracking to crowd-source document credibility.
+
+---
+
+## 📅 Development Roadmap
+This project is currently in **ALPHA**. Features are being deployed weekly.
+- [x] Core Intelligence Hub Architecture
+- [x] 80+ Initial Document Indexing
+- [x] 3D Model Rendering Engine
+- [x] Forensic Media Integration
+- [ ] **Phase 2**: Progressive PDF Host (Uploading heavy documents sequentially).
+- [ ] **Phase 3**: Batch Media Ingest Protocol for Admins.
+- [ ] **Phase 4**: Real-time Satellite Anomaly Feeds.
+
+---
+
+## ⚠️ Important Note for Researchers
+The current build serves as a **Functional Metadata Index**. Due to storage and bandwidth constraints, large physical PDF files are being uploaded progressively. If a document shows "NO PDF AVAILABLE", it is currently residing in our local physical vault and will be synchronized soon.
+
+---
+
+## 🛠️ Technical Stack
+- **Framework**: Next.js 14 (App Router)
+- **Styling**: Tailwind CSS / Framer Motion (Hyperglass Aesthetic)
+- **3D Engine**: Three.js / @react-three/fiber
+- **Database**: Prisma + SQLite (Local) / Vercel KV (Production)
+- **Icons**: Lucide React
+
+---
+
+## 🤝 Join the Disclosure
+We are looking for data researchers, intelligence analysts, and developers to help seize the truth.
+- **Reddit**: Join the conversation on [r/UFOs](https://reddit.com/r/UFOs).
+- **GitHub**: Contribute to the codebase or submit new document metadata.
+
+---
+
+## ⚖️ License
+Information belongs to the people. This project is licensed under open-source standards to ensure the preservation of disclosure data.
+
 *"The truth is no longer out there; it is here, documented, and immutable."*
+🛡️🛰️👽
