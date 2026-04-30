@@ -1156,7 +1156,22 @@ export default function ProjectDetailPage() {
     );
   }
 
+  const getRealId = (codename: string) => {
+    if (codename === "SOLAR WARDEN") return "4127";
+    if (codename === "MAJESTIC") return "0012";
+    if (codename === "AQUARIUS") return "7701";
+    if (codename === "STARGATE") return "9607";
+    if (codename === "GATEWAY") return "8303";
+    if (codename === "BLUE BOOK") return "1300";
+    let hash = 0;
+    for (let i = 0; i < codename.length; i++) {
+      hash = codename.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    return Math.abs(hash % 9000 + 1000).toString();
+  };
+
   const classColor = CLASS_COLORS[project.classification] || "#ffffff";
+  const realId = getRealId(project.codename);
 
   return (
     <div className="min-h-screen pt-16 bg-[#030303] relative overflow-hidden">
@@ -1182,7 +1197,7 @@ export default function ProjectDetailPage() {
               <h1 className="font-mono text-5xl font-black tracking-tighter text-white mb-2 italic">{project.codename}</h1>
               <div className="flex items-center gap-3">
                 <div className="px-2 py-0.5 bg-white/5 border border-white/10 rounded font-mono text-[9px] text-white/30 uppercase tracking-widest">REAL_ID</div>
-                <p className="font-mono text-xl text-white/60 tracking-widest">{project.name.replace('Project ', '').replace('Operation ', '')}</p>
+                <p className="font-mono text-xl text-white/60 tracking-widest">#{realId}</p>
               </div>
             </div>
             <span className="font-mono text-[10px] px-3 py-1.5 rounded-lg border uppercase tracking-widest shrink-0 mt-2"

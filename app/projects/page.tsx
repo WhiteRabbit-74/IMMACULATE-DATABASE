@@ -22,6 +22,22 @@ export default function ProjectsPage() {
   const [search, setSearch] = useState("");
   const [classFilter, setClassFilter] = useState("All");
 
+  const getRealId = (codename: string) => {
+    if (codename === "SOLAR WARDEN") return "4127";
+    if (codename === "MAJESTIC") return "0012";
+    if (codename === "AQUARIUS") return "7701";
+    if (codename === "STARGATE") return "9607";
+    if (codename === "GATEWAY") return "8303";
+    if (codename === "BLUE BOOK") return "1300";
+    
+    // Deterministic 4-digit number based on codename for others
+    let hash = 0;
+    for (let i = 0; i < codename.length; i++) {
+      hash = codename.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    return Math.abs(hash % 9000 + 1000).toString();
+  };
+
   useEffect(() => {
     fetch("/api/operations")
       .then(res => res.json())
@@ -38,6 +54,7 @@ export default function ProjectsPage() {
           slug: op.codename.toLowerCase().replace(/\s+/g, "-"),
           name: op.name,
           codename: op.codename,
+          realId: getRealId(op.codename),
           agency: op.agency || "INTER-AGENCY",
           classification: op.status === "archived" ? "DECLASSIFIED" : "TOP SECRET",
           years: op.startYear ? `${op.startYear}–${op.endYear || "present"}` : "UNKNOWN",
@@ -136,7 +153,10 @@ export default function ProjectsPage() {
                   </div>
 
                   <div className="font-mono text-[10px] text-white/30 uppercase tracking-widest mb-1">CODENAME</div>
-                  <h2 className="font-mono text-xl font-black text-white group-hover:text-white/90 tracking-tight mb-2">{project.codename}</h2>
+                  <h2 className="font-mono text-xl font-black text-white group-hover:text-white/90 tracking-tight mb-2">
+                    <span className="text-white/20 mr-2">#{project.realId}</span>
+                    {project.codename}
+                  </h2>
                   <div className="font-mono text-xs text-white/50 mb-3 line-clamp-1">{project.name}</div>
 
                   <p className="text-xs text-white/40 leading-relaxed line-clamp-3 mb-4 flex-1 font-light">{project.description}</p>
