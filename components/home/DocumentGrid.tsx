@@ -91,34 +91,15 @@ function DocumentCard({ doc, index }: { doc: Document; index: number }) {
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ delay: index * 0.05 }}
       whileHover={{ y: -4 }}
-      className="group relative rounded-xl overflow-hidden bg-white/[0.03] border border-white/10 flex flex-col transition-all duration-300"
-      style={{
-        // Dynamic hover border via CSS variable if possible, but let's use style for simplicity or hover class
-      }}
+      className="group relative rounded-xl overflow-hidden bg-white/[0.03] border border-white/10 flex flex-col transition-all duration-300 cursor-pointer"
     >
       {/* Clickable area covers everything */}
-      <Link href={`/documents/${doc.id}`} className="absolute inset-0 z-10">
+      <Link href={`/documents/${doc.id}`} className="absolute inset-0 z-30">
         <span className="sr-only">View {doc.title}</span>
       </Link>
 
-      {/* Agency color top bar */}
-      <div
-        className="h-0.5 w-0 group-hover:w-full transition-all duration-500"
-        style={{ backgroundColor: doc.agency.colorPrimary }}
-      />
-
-      {/* Neural Background Watermark (Binary style) */}
-      <div 
-        className="absolute inset-0 font-mono text-[6px] overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none select-none break-all p-2"
-        style={{ color: doc.agency.colorPrimary, opacity: 0.05 }}
-      >
-        {Array.from({ length: 40 }).map((_, i) => (
-          <span key={i}>{Math.random().toString(16).substring(2, 12)} </span>
-        ))}
-      </div>
-
       {/* Content */}
-      <div className="p-5 flex flex-col flex-1 relative z-20">
+      <div className="p-5 flex flex-col flex-1 relative z-10">
         {/* Header */}
         <div className="flex items-start justify-between mb-4 gap-2">
           <span className="font-mono text-[9px] text-white/30 uppercase tracking-widest leading-tight">
