@@ -153,11 +153,10 @@ export default function ProjectsPage() {
                   </div>
 
                   <div className="font-mono text-[10px] text-white/30 uppercase tracking-widest mb-1">CODENAME</div>
-                  <h2 className="font-mono text-xl font-black text-white group-hover:text-white/90 tracking-tight mb-2">
-                    <span className="text-white/20 mr-2">#{project.realId}</span>
-                    {project.codename}
-                  </h2>
-                  <div className="font-mono text-xs text-white/50 mb-3 line-clamp-1">{project.name}</div>
+                  <h2 className="font-mono text-xl font-black text-white group-hover:text-white/90 tracking-tight mb-1">{project.codename}</h2>
+                  <div className="font-mono text-[10px] text-amber-500/80 uppercase tracking-widest mb-3">
+                    PROJECT <span className="text-white/80 ml-1">#{project.realId}</span>
+                  </div>
 
                   <p className="text-xs text-white/40 leading-relaxed line-clamp-3 mb-4 flex-1 font-light">{project.description}</p>
 

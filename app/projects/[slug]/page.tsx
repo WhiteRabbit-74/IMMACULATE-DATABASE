@@ -1194,10 +1194,11 @@ export default function ProjectDetailPage() {
             <div>
               <div className="font-mono text-[9px] text-white/30 uppercase tracking-widest mb-2">{project.agency} // {project.years}</div>
               <div className="font-mono text-[10px] text-white/40 uppercase tracking-[0.3em] mb-1">CODENAME</div>
-              <h1 className="font-mono text-5xl font-black tracking-tighter text-white mb-2 italic">{project.codename}</h1>
+              <h1 className="font-mono text-5xl font-black tracking-tighter text-white mb-3 italic">{project.codename}</h1>
               <div className="flex items-center gap-3">
-                <div className="px-2 py-0.5 bg-white/5 border border-white/10 rounded font-mono text-[9px] text-white/30 uppercase tracking-widest">REAL_ID</div>
-                <p className="font-mono text-xl text-white/60 tracking-widest">#{realId}</p>
+                <div className="font-mono text-[10px] text-amber-500/80 uppercase tracking-widest bg-amber-500/5 px-2 py-0.5 border border-amber-500/20 rounded">
+                  PROJECT <span className="text-white ml-1">#{realId}</span>
+                </div>
               </div>
             </div>
             <span className="font-mono text-[10px] px-3 py-1.5 rounded-lg border uppercase tracking-widest shrink-0 mt-2"
