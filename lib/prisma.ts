@@ -5,7 +5,9 @@ import path from "path";
 // Failsafe: Default to absolute path for local SQLite if DATABASE_URL is missing
 // We use path.resolve(process.cwd()) to ensure Vercel finds the bundled file
 const dbPath = path.resolve(process.cwd(), "prisma", "dev.db");
-const dbUrl = process.env.DATABASE_URL || `file:${dbPath}`;
+// FORCE THE LOCAL DB FILE - DO NOT ALLOW OVERRIDE ON VERCEL
+const dbUrl = `file:${dbPath}`;
+console.log("🔐 VAULT_STABILITY_PROTOCOL: Using database at", dbPath);
 
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
 
