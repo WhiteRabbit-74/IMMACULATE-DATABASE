@@ -106,52 +106,55 @@ export default function ProjectsPage() {
 
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          <AnimatePresence>
-            {filtered.map((project, i) => (
-              <motion.div key={project.slug} layout initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ delay: i * 0.04 }}>
-                <Link href={`/projects/${project.slug}`} className="block group">
-                  <div
-                    className="relative bg-white/[0.03] border border-white/10 hover:border-white/25 rounded-2xl p-6 flex flex-col h-full transition-all overflow-hidden"
-                    style={{ borderColor: `${CLASS_COLORS[project.classification] || "#ffffff"}20` }}
-                  >
-                    {/* Classification stripe */}
-                    <div className="absolute top-0 left-0 right-0 h-0.5" style={{ backgroundColor: CLASS_COLORS[project.classification] || "#ffffff" }} />
+          {filtered.map((project) => (
+            <motion.div 
+              key={project.slug} 
+              initial={{ opacity: 0, scale: 0.98 }} 
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Link href={`/projects/${project.slug}`} className="block group h-full">
+                <div
+                  className="relative bg-white/[0.03] border border-white/10 hover:border-white/25 rounded-2xl p-6 flex flex-col h-full transition-all overflow-hidden"
+                  style={{ borderColor: `${CLASS_COLORS[project.classification] || "#ffffff"}20` }}
+                >
+                  {/* Classification stripe */}
+                  <div className="absolute top-0 left-0 right-0 h-0.5" style={{ backgroundColor: CLASS_COLORS[project.classification] || "#ffffff" }} />
 
-                    {/* Hover glow */}
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.03] transition-opacity" style={{ backgroundColor: project.coverColor }} />
+                  {/* Hover glow */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.03] transition-opacity" style={{ backgroundColor: project.coverColor }} />
 
-                    {/* Header */}
-                    <div className="flex items-start justify-between mb-4">
-                      <div>
-                        <div className="font-mono text-[9px] text-white/30 uppercase tracking-widest">{project.agency}</div>
-                        <div className="font-mono text-[9px] text-white/20 mt-0.5">{project.years}</div>
-                      </div>
-                      <span className="font-mono text-[8px] px-2 py-0.5 rounded border uppercase tracking-wider shrink-0" style={{ color: CLASS_COLORS[project.classification] || "#fff", borderColor: `${CLASS_COLORS[project.classification] || "#fff"}30`, backgroundColor: `${CLASS_COLORS[project.classification] || "#fff"}10` }}>
-                        {project.classification}
-                      </span>
+                  {/* Header */}
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <div className="font-mono text-[9px] text-white/30 uppercase tracking-widest">{project.agency}</div>
+                      <div className="font-mono text-[9px] text-white/20 mt-0.5">{project.years}</div>
                     </div>
-
-                    <div className="font-mono text-[10px] text-white/30 uppercase tracking-widest mb-1">CODENAME</div>
-                    <h2 className="font-mono text-xl font-black text-white group-hover:text-white/90 tracking-tight mb-2">{project.codename}</h2>
-                    <div className="font-mono text-xs text-white/50 mb-3 line-clamp-1">{project.name}</div>
-
-                    <p className="text-xs text-white/40 leading-relaxed line-clamp-3 mb-4 flex-1 font-light">{project.description}</p>
-
-                    <div className="flex flex-wrap gap-1 mb-4">
-                      {project.tags.slice(0, 4).map((t: string) => (
-                        <span key={t} className="font-mono text-[8px] bg-white/5 text-white/30 px-1.5 py-0.5 rounded">#{t}</span>
-                      ))}
-                    </div>
-
-                    <div className="flex items-center gap-1 font-mono text-[10px] text-white/30 group-hover:text-amber-400 transition-colors mt-auto">
-                      <span>VIEW DOSSIER</span>
-                      <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
-                    </div>
+                    <span className="font-mono text-[8px] px-2 py-0.5 rounded border uppercase tracking-wider shrink-0" style={{ color: CLASS_COLORS[project.classification] || "#fff", borderColor: `${CLASS_COLORS[project.classification] || "#fff"}30`, backgroundColor: `${CLASS_COLORS[project.classification] || "#fff"}10` }}>
+                      {project.classification}
+                    </span>
                   </div>
-                </Link>
-              </motion.div>
-            ))}
-          </AnimatePresence>
+
+                  <div className="font-mono text-[10px] text-white/30 uppercase tracking-widest mb-1">CODENAME</div>
+                  <h2 className="font-mono text-xl font-black text-white group-hover:text-white/90 tracking-tight mb-2">{project.codename}</h2>
+                  <div className="font-mono text-xs text-white/50 mb-3 line-clamp-1">{project.name}</div>
+
+                  <p className="text-xs text-white/40 leading-relaxed line-clamp-3 mb-4 flex-1 font-light">{project.description}</p>
+
+                  <div className="flex flex-wrap gap-1 mb-4">
+                    {project.tags.slice(0, 4).map((t: string) => (
+                      <span key={t} className="font-mono text-[8px] bg-white/5 text-white/30 px-1.5 py-0.5 rounded">#{t}</span>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center gap-1 font-mono text-[10px] text-white/30 group-hover:text-amber-400 transition-colors mt-auto">
+                    <span>VIEW DOSSIER</span>
+                    <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
         </div>
 
         {filtered.length === 0 && (
