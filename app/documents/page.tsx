@@ -378,7 +378,7 @@ function DocCard({ doc, onStar }: { doc: Document, onStar: (e: React.MouseEvent)
 
       <div className="flex items-start justify-between mb-3">
         <div className="font-mono text-[10px] text-white/30">
-          <span style={{ color: doc.agency.colorPrimary }}>{(doc.agency as any).slug?.toUpperCase() || doc.agency.name}</span>
+          <span style={{ color: doc.agency.colorPrimary }}>{doc.agency.name}</span>
           {" // "}
           {doc.year}
         </div>

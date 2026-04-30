@@ -67,7 +67,7 @@ export function AgencySelector() {
             className="w-2 h-2 rounded-full"
             style={{ backgroundColor: agency.colorPrimary }}
           />
-          {agency.name}
+          {agency.slug.toUpperCase()}
         </motion.button>
       ))}
     </div>
