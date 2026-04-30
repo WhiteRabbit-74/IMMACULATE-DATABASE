@@ -91,7 +91,10 @@ function DocumentCard({ doc, index }: { doc: Document; index: number }) {
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ delay: index * 0.05 }}
       whileHover={{ y: -4 }}
-      className="group relative rounded-xl overflow-hidden bg-white/[0.03] border border-white/10 hover:border-white/20 flex flex-col transition-all"
+      className="group relative rounded-xl overflow-hidden bg-white/[0.03] border border-white/10 flex flex-col transition-all duration-300"
+      style={{
+        // Dynamic hover border via CSS variable if possible, but let's use style for simplicity or hover class
+      }}
     >
       {/* Clickable area covers everything */}
       <Link href={`/documents/${doc.id}`} className="absolute inset-0 z-10">
@@ -104,31 +107,51 @@ function DocumentCard({ doc, index }: { doc: Document; index: number }) {
         style={{ backgroundColor: doc.agency.colorPrimary }}
       />
 
+      {/* Neural Background Watermark (Binary style) */}
+      <div 
+        className="absolute inset-0 font-mono text-[6px] overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none select-none break-all p-2"
+        style={{ color: doc.agency.colorPrimary, opacity: 0.05 }}
+      >
+        {Array.from({ length: 40 }).map((_, i) => (
+          <span key={i}>{Math.random().toString(16).substring(2, 12)} </span>
+        ))}
+      </div>
+
       {/* Content */}
-      <div className="p-5 flex flex-col flex-1">
+      <div className="p-5 flex flex-col flex-1 relative z-20">
         {/* Header */}
         <div className="flex items-start justify-between mb-4 gap-2">
           <span className="font-mono text-[9px] text-white/30 uppercase tracking-widest leading-tight">
-            <span style={{ color: doc.agency.colorPrimary }}>{doc.agency.name}</span>
+            <span style={{ color: doc.agency.colorPrimary }} className="group-hover:brightness-125 transition-all">{doc.agency.name}</span>
             {" // "}
             {doc.year}
           </span>
 
-          {/* Status badge — subtle animation, not full glitch */}
+          {/* Status badge */}
           <span
-            className={`flex items-center gap-1 font-mono text-[8px] px-2 py-0.5 rounded-sm border uppercase tracking-wider shrink-0 ${
+            className={`flex items-center gap-1 font-mono text-[8px] px-2 py-0.5 rounded-sm border uppercase tracking-wider shrink-0 transition-all ${
               isClassified
-                ? "text-red-400 bg-red-500/10 border-red-500/20"
+                ? "text-red-400 bg-red-500/10 border-red-500/20 group-hover:bg-red-500/20"
                 : "text-green-400 bg-green-500/10 border-green-500/20"
             }`}
+            style={!isClassified ? { color: "#00ff00", backgroundColor: "rgba(0,255,0,0.05)", borderColor: "rgba(0,255,0,0.1)" } : {}}
           >
             {isClassified ? <Lock className="w-2 h-2" /> : <Unlock className="w-2 h-2" />}
             {doc.status}
           </span>
         </div>
 
-        <h3 className="font-bold text-sm text-white leading-tight line-clamp-2 mb-2 flex-1 group-hover:text-white/90 transition-colors">
-          {doc.title}
+        <h3 
+          className="font-bold text-sm text-white leading-tight line-clamp-2 mb-2 flex-1 transition-colors duration-300"
+          style={{ 
+            // In CSS we can't easily do group-hover on style without custom logic, but we can use a class that we'll add to globals or just use inline hover if it was a component.
+            // Actually, I'll use a CSS variable for the agency color.
+          } as any}
+        >
+          {/* We'll use a trick: hover color via a CSS variable set on the parent */}
+          <span className="group-hover:text-[var(--agency-color)] transition-colors" style={{ "--agency-color": doc.agency.colorPrimary } as any}>
+            {doc.title}
+          </span>
         </h3>
 
         {doc.description && (
@@ -141,27 +164,27 @@ function DocumentCard({ doc, index }: { doc: Document; index: number }) {
         {doc.tags.length > 0 && (
           <div className="flex flex-wrap gap-1 mb-4">
             {doc.tags.slice(0, 3).map((tag) => (
-              <span key={tag.name} className="font-mono text-[8px] bg-white/5 text-white/30 px-1.5 py-0.5 rounded">
+              <span key={tag.name} className="font-mono text-[8px] bg-white/5 text-white/30 px-1.5 py-0.5 rounded group-hover:bg-white/10 transition-colors">
                 #{tag.name}
               </span>
             ))}
-            {doc.tags.length > 3 && (
-              <span className="font-mono text-[8px] text-white/20">+{doc.tags.length - 3}</span>
-            )}
           </div>
         )}
 
         {/* Footer */}
-        <div className="flex items-center gap-1 font-mono text-[10px] text-white/30 group-hover:text-[#00ff00] transition-colors mt-auto">
-          <span>ACCESS FILE</span>
-          <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+        <div 
+          className="flex items-center gap-1 font-mono text-[10px] text-white/30 transition-colors mt-auto pt-2 border-t border-white/5 group-hover:text-[var(--agency-color)]"
+          style={{ "--agency-color": doc.agency.colorPrimary } as any}
+        >
+          <span className="tracking-widest">ACCESS_FILE_NODE</span>
+          <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
         </div>
       </div>
 
-      {/* Hover glow overlay */}
-      <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-[0.04] transition-opacity pointer-events-none"
-        style={{ backgroundColor: doc.agency.colorPrimary }}
+      {/* Scannable Glow Effect */}
+      <div 
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+        style={{ background: `linear-gradient(to top, ${doc.agency.colorPrimary}10, transparent)` }}
       />
     </motion.div>
   );

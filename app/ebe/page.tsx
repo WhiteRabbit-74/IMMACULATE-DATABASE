@@ -4,101 +4,10 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Shield, Info, Activity, Dna, Eye, User, FileText, AlertTriangle } from "lucide-react";
 
-const EBE_TYPES = [
-  {
-    id: "greys",
-    name: "Grays",
-    origin: "Zeta Reticuli System",
-    height: "3.5 - 4.5 ft",
-    desc: "The most commonly reported entity. Characterized by large almond-shaped black eyes, slit-like mouth, and hairless gray skin. Exhibits telepathic communication capabilities.",
-    details: "Allegedly involved in the 1947 Roswell event. Biological analysis suggests a highly specialized respiratory system and lack of digestive tract as we understand it.",
-    image: "/media/foto/EXTRATERRESTRI/grey.png",
-    classification: "EXTREME_CAUTION",
-  },
-  {
-    id: "reptilians",
-    name: "Reptilians (Draconian)",
-    origin: "Alpha Draconis",
-    height: "6.0 - 8.0 ft",
-    desc: "Saurian-like entities with scales and vertical slit pupils. Reported to have immense physical strength and shape-shifting abilities via advanced light-bending technology.",
-    details: "Historically referenced in ancient Sumerian and Mesoamerican texts. Alleged to occupy deep underground military bases (DUMBs).",
-    image: "/media/foto/EXTRATERRESTRI/reptiians.png",
-    classification: "HOSTILE_THREAT",
-  },
-  {
-    id: "flatwoods",
-    name: "Flatwoods Monster",
-    origin: "Unknown (1952 Case)",
-    height: "10.0 - 12.0 ft",
-    desc: "Mechanical-biological entity with a spade-shaped head and a metallic 'skirt'. Emits a thick, irritating smoke.",
-    details: "Sighted in West Virginia in 1952. Soil analysis revealed traces of oil and unidentified metallic fragments.",
-    image: "/media/foto/EXTRATERRESTRI/flatwoods.png",
-    classification: "UNKNOWN_HAZARD",
-  },
-  {
-    id: "hopkinsville",
-    name: "Hopkinsville Goblins",
-    origin: "Unknown (1955 Case)",
-    height: "3.0 - 4.0 ft",
-    desc: "Small silvery entities with large pointed ears and clawed hands. Appear immune to bullets and move by 'floating'.",
-    details: "Protagonists of a farm siege in Kentucky in 1955. Documented in the Project Blue Book archives.",
-    image: "/media/foto/EXTRATERRESTRI/hopkinsville.png",
-    classification: "INTRUSIVE_AGGRESSIVE",
-  },
-  {
-    id: "valensole",
-    name: "Valensole Humanoids",
-    origin: "Unknown (1965 Case)",
-    height: "3.5 - 4.0 ft",
-    desc: "Entities with very large heads and slanted eyes. Wear tight-fitting suits and utilize paralyzing devices.",
-    details: "Sighted in France in 1965. Left a circular imprint in the ground where no vegetation grew for decades.",
-    image: "/media/foto/EXTRATERRESTRI/valensole.png",
-    classification: "NON_AGGRESSIVE",
-  },
-  {
-    id: "pascagoula",
-    name: "Pascagoula Entities",
-    origin: "Unknown (1973 Case)",
-    height: "5.0 - 5.5 ft",
-    desc: "Wrinkled skin, carrot-shaped protrusions instead of nose and ears, and crab-like claws.",
-    details: "Involved in the abduction of Charles Hickson and a series of medical exams aboard a cigar-shaped craft.",
-    image: "/media/foto/EXTRATERRESTRI/pascagoula.png",
-    classification: "MEDICAL_ANALYSIS",
-  },
-  {
-    id: "nordics",
-    name: "Nordics (Pleiadians)",
-    origin: "Pleiades Star Cluster",
-    height: "6.0 - 7.0 ft",
-    desc: "Human-looking entities with fair skin and blond hair. Often associated with 'spiritual' messages or nuclear warnings.",
-    details: "Reported to have a high level of concern for Earth's nuclear proliferation.",
-    image: "/media/foto/EXTRATERRESTRI/nordics.png",
-    classification: "NEUTRAL_DIPLOMATIC",
-  },
-  {
-    id: "ebens",
-    name: "Ebens",
-    origin: "Serpo (Zeta Reticuli)",
-    height: "3.5 - 4.0 ft",
-    desc: "The species involved in the alleged 'Project Serpo' exchange program. Similar to Grays but with more distinct facial features and skin texture.",
-    details: "Cooperative entities that allegedly hosted 12 American military personnel on their home planet for over a decade.",
-    image: "/media/foto/EXTRATERRESTRI/ebens.png",
-    classification: "CONFIRMED_CONTACT",
-  },
-  {
-    id: "mantis",
-    name: "Mantis (Insectoids)",
-    origin: "Unknown",
-    height: "7.0 - 9.0 ft",
-    desc: "Giant mantis-like beings often reported as 'overseers' during abduction events. Exhibit extremely high intelligence.",
-    details: "Often seen wearing purple or gold robes. Witnesses report a clicking sound when they communicate verbally.",
-    image: "/media/foto/EXTRATERRESTRI/mantis.png",
-    classification: "HIGH_INTEL",
-  },
-];
+import { XENO_ENTITIES } from "@/components/intel/AdvancedTools";
 
 export default function EbePage() {
-  const [selected, setSelected] = useState(EBE_TYPES[0]);
+  const [selected, setSelected] = useState(XENO_ENTITIES[0]);
 
   return (
     <div className="min-h-screen pt-24 bg-[#030303] px-6 py-10 relative overflow-hidden">
@@ -116,7 +25,7 @@ export default function EbePage() {
              </div>
              
              <div className="space-y-2">
-                {EBE_TYPES.map((ebe: any) => (
+                {XENO_ENTITIES.map((ebe: any) => (
                   <button
                     key={ebe.id}
                     onClick={() => setSelected(ebe)}
@@ -161,7 +70,7 @@ export default function EbePage() {
                       <div className="w-full lg:w-96 shrink-0">
                          <div className="aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 bg-black relative group">
                             <img 
-                               src={encodeURI(selected.image)} 
+                               src={encodeURI(selected.img)} 
                                alt={selected.name} 
                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80" 
                             />
@@ -181,7 +90,7 @@ export default function EbePage() {
                             </div>
                             <div>
                                <div className="text-[9px] text-white/30 uppercase tracking-[0.2em] mb-1">Height_Spec</div>
-                               <div className="text-sm font-mono text-white font-bold">{selected.height}</div>
+                               <div className="text-sm font-mono text-white font-bold">{selected.stats.height}</div>
                             </div>
                          </div>
 
@@ -190,7 +99,7 @@ export default function EbePage() {
                                <div className="h-[1px] w-4 bg-purple-500/50" />
                                <div className="text-[9px] text-purple-400 uppercase tracking-widest">Biological_Profile</div>
                             </div>
-                            <p className="text-white/60 text-sm leading-relaxed font-light italic">"{selected.desc}"</p>
+                            <p className="text-white/60 text-sm leading-relaxed font-light italic">"{selected.bioInfo}"</p>
                          </div>
 
                          <div className="space-y-4">
@@ -199,7 +108,7 @@ export default function EbePage() {
                                <div className="text-[9px] text-purple-400 uppercase tracking-widest">Intelligence_Assessment</div>
                             </div>
                             <div className="p-4 bg-purple-500/5 border border-purple-500/20 rounded-xl">
-                               <p className="text-xs text-white/50 leading-relaxed font-mono">{selected.details}</p>
+                               <p className="text-xs text-white/50 leading-relaxed font-mono">{selected.history}</p>
                             </div>
                          </div>
 

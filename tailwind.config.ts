@@ -75,13 +75,13 @@ const config: Config = {
           "80%": { transform: "translate(2px, -2px)" },
           "100%": { transform: "translate(0)" },
         },
-        "scanline": {
-          "0%": { transform: "translateY(-100%)" },
-          "100%": { transform: "translateY(100%)" },
-        },
         "glow-pulse": {
           "0%, 100%": { opacity: "0.5", filter: "blur(10px)" },
           "50%": { opacity: "1", filter: "blur(20px)" },
+        },
+        "marquee": {
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-100%)" },
         }
       },
       animation: {
@@ -90,6 +90,7 @@ const config: Config = {
         glitch: "glitch 0.3s cubic-bezier(.25,.46,.45,.94) infinite",
         scanline: "scanline 8s linear infinite",
         "glow-pulse": "glow-pulse 4s ease-in-out infinite",
+        "marquee": "marquee 60s linear infinite",
       },
       backgroundImage: {
         "grid-pattern": "linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)",

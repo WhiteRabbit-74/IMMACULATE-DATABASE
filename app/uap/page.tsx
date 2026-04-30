@@ -84,8 +84,8 @@ const UAP_TYPES = [
     characteristics: "Ornate, multi-tiered structure with crystalline geometry. Anomalous luminosity.",
     incidents: ["Visual Intelligence Leak (2024)"],
     relatedProjects: ["mj12"],
-    imageUrl: "/media/foto/UFO LEAK/leak12.jpg",
-    comingSoon: true,
+    imageUrl: "/media/foto/UFO_UAP/star stellar.png",
+    comingSoon: false,
     docs: []
   },
   {
@@ -94,18 +94,18 @@ const UAP_TYPES = [
     characteristics: "Boomerang-shaped craft with high-thermal signature and non-ballistic movement.",
     incidents: ["Visual Intelligence Leak (2024)"],
     relatedProjects: ["aatip"],
-    imageUrl: "/media/foto/UFO LEAK/LEAK6.avif",
-    comingSoon: true,
+    imageUrl: "/media/foto/UFO_UAP/v shaped.png",
+    comingSoon: false,
     docs: []
   },
   {
     id: "black-cube",
     name: "Black Cube",
     characteristics: "Geometric cube structure within a translucent sphere. Detected in US training ranges.",
-    incidents: ["Visual Intelligence Leak (2024)"],
-    relatedProjects: ["pounce"],
-    imageUrl: "/media/foto/UFO LEAK/LEAK9.avif",
-    comingSoon: true,
+    incidents: ["Visual Intelligence Leak (2024)", "East Coast Range (2015)"],
+    relatedProjects: ["pounce", "aatip"],
+    imageUrl: "/media/foto/UFO_UAP/cube.png",
+    comingSoon: false,
     docs: []
   },
   {
@@ -114,8 +114,8 @@ const UAP_TYPES = [
     characteristics: "Cruciform morphology. Unusual structural rigidity and stealth properties.",
     incidents: ["Visual Intelligence Leak (2024)"],
     relatedProjects: ["sign"],
-    imageUrl: "/media/foto/UFO LEAK/LEAK7.avif",
-    comingSoon: true,
+    imageUrl: "/media/foto/UFO_UAP/sharp cross.png",
+    comingSoon: false,
     docs: []
   }
 ];

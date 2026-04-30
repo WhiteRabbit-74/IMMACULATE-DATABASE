@@ -1,0 +1,27 @@
+Model: Tic Tac (2004 USS Nimitz Encounter)
+
+
+
+Print type: Printed as three seperately pieces.
+
+
+Slicer Settings:
+
+- Supports          - No
+- Brim              - No
+- Nozzle Temp       - 225C
+- Bed Temp          - 60C
+- Layer Height      - 0.20mm
+- Infill            - 99%
+
+
+
+Colour: White
+
+
+The end caps should be a tight plug fit. If excess tightness is encountered sand inside the tube.
+
+Take special care when cleaning the 'probes' as these can be very delicate.
+
+
+-P42CAD

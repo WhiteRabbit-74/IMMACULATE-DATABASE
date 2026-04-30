@@ -9,6 +9,7 @@ import {
   Box, Zap
 } from "lucide-react";
 import Link from "next/link";
+import { BLACK_PROJECTS } from "@/components/intel/ProjectRegistry";
 
 interface Document {
   id: string;
@@ -162,7 +163,6 @@ export default function DocumentsPage() {
                     { id: "gateway", label: "Gateway Process", icon: Unlock, color: "#0088ff" },
                     { id: "aquarius", label: "Project Aquarius", icon: Star, color: "#00ffaa" },
                     { id: "stargate", label: "Project Stargate", icon: Eye, color: "#ffaa00" },
-                    { id: "aatip", label: "AATIP Records", icon: ShieldCheck, color: "#00ffff" },
                     { id: "moondust", label: "Operation Moon Dust", icon: Globe, color: "#ff6600" },
                     { id: "grudge", label: "Project Grudge", icon: FileText, color: "#ffffff" },
                     { id: "sign", label: "Project Sign", icon: Target, color: "#00aaff" },
@@ -209,19 +209,42 @@ export default function DocumentsPage() {
           </div>
 
           <div>
-            <div className="font-mono text-[10px] text-white/30 uppercase tracking-widest mb-3">Tags</div>
-            <div className="flex flex-wrap gap-1.5">
-              {tags.slice(0, 15).map((t: TagItem) => (
+            <div className="font-mono text-[10px] text-white/30 uppercase tracking-widest mb-3">Document_Type</div>
+            <div className="flex flex-col gap-1">
+              {[
+                { id: "memo", label: "Memo / Directive" },
+                { id: "report", label: "Official Report" },
+                { id: "manual", label: "Technical Manual" },
+                { id: "photo", label: "Photographic Evidence" }
+              ].map((t) => (
                 <button
                   key={t.id}
-                  onClick={() => setTagFilter(tagFilter === t.name ? "" : t.name)}
-                  className={`font-mono text-[9px] px-2 py-0.5 rounded transition-all ${
-                    tagFilter === t.name
-                      ? "bg-[#00ff00]/20 text-[#00ff00] border border-[#00ff00]/30"
-                      : "bg-white/5 text-white/30 border border-white/5 hover:border-white/20"
-                  }`}
+                  onClick={() => setTagFilter(tagFilter === t.id ? "" : t.id)}
+                  className={`w-full text-left px-3 py-1.5 rounded font-mono text-xs transition-all flex items-center gap-2 ${tagFilter === t.id ? "bg-[#00ff00]/10 text-[#00ff00] border border-[#00ff00]/30" : "text-white/40 hover:text-white/70 hover:bg-white/5 border border-transparent"}`}
                 >
-                  #{t.name}
+                  <FileText className="w-3 h-3" />
+                  {t.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <div className="font-mono text-[10px] text-white/30 uppercase tracking-widest mb-3">Clearance_Level</div>
+            <div className="flex flex-col gap-1">
+              {[
+                { id: "top-secret", label: "TOP SECRET", color: "text-orange-500" },
+                { id: "majestic", label: "MAJESTIC", color: "text-blue-500" },
+                { id: "ultra-top-secret", label: "ULTRA TOP SECRET", color: "text-red-500" },
+                { id: "beyond-black", label: "BEYOND BLACK", color: "text-purple-500" }
+              ].map((c) => (
+                <button
+                  key={c.id}
+                  onClick={() => setTagFilter(tagFilter === c.id ? "" : c.id)}
+                  className={`w-full text-left px-3 py-1.5 rounded font-mono text-xs transition-all flex items-center gap-2 ${tagFilter === c.id ? "bg-white/10 text-white" : "text-white/40 hover:text-white/70 hover:bg-white/5"}`}
+                >
+                  <Lock className={`w-3 h-3 ${c.color}`} />
+                  {c.label}
                 </button>
               ))}
             </div>
@@ -230,7 +253,29 @@ export default function DocumentsPage() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-8">
+      <main className="flex-1 p-8 overflow-x-hidden">
+        {/* Quick Stats Header */}
+        <div className="grid grid-cols-4 gap-4 mb-10">
+          {[
+            { label: "Total_Records", value: docs.length, icon: FileText, color: "text-white" },
+            { label: "Classified", value: classified.length, icon: Lock, color: "text-red-500" },
+            { label: "Declassified", value: declassified.length, icon: Unlock, color: "text-[#00ff00]" },
+            { label: "Agencies", value: agencies.length, icon: Globe, color: "text-blue-400" },
+          ].map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
+              className="bg-white/[0.02] border border-white/5 rounded-xl p-4 flex flex-col items-center justify-center text-center"
+            >
+              <stat.icon className={`w-4 h-4 mb-2 ${stat.color}`} />
+              <div className="font-mono text-xl font-bold text-white">{stat.value}</div>
+              <div className="font-mono text-[8px] text-white/20 uppercase tracking-widest">{stat.label}</div>
+            </motion.div>
+          ))}
+        </div>
+
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {[...Array(9)].map((_, i) => (
@@ -259,10 +304,11 @@ export default function DocumentsPage() {
               />
             ) : null}
 
-            {docs.length === 0 && (
+            {docs.length === 0 && !loading && (
               <div className="flex flex-col items-center justify-center py-20 border border-dashed border-white/10 rounded-xl">
                 <FileText className="w-12 h-12 text-white/10 mb-4" />
-                <p className="font-mono text-sm text-white/30">NO_RECORDS_FOUND_IN_THIS_SECTOR</p>
+                <p className="font-mono text-sm text-white/30 tracking-widest">NO_RECORDS_FOUND_IN_THIS_SECTOR</p>
+                <p className="font-mono text-[10px] text-white/10 mt-2">ACCESS_LEVEL: RESTRICTED</p>
               </div>
             )}
           </div>

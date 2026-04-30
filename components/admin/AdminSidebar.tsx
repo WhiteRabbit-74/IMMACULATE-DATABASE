@@ -12,13 +12,9 @@ import {
   LogOut,
   ShieldAlert,
   ExternalLink,
-  Shield,
-  CheckCircle2,
-  Clock,
-  Archive as ArchiveIcon,
-  Eye,
-  AlertTriangle,
-  Globe,
+  Tag,
+  Layers,
+  CheckSquare,
   Folder,
 } from "lucide-react";
 
@@ -27,16 +23,29 @@ const navGroups = [
     label: "Management",
     items: [
       { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
-      { href: "/admin/upload", label: "Upload Document", icon: Upload },
-      { href: "/admin/documents", label: "Documents", icon: FileText },
-      { href: "/admin/media", label: "Media Archive", icon: Image },
       { href: "/admin/agencies", label: "Agencies", icon: Building2 },
+      { href: "/admin/operations", label: "Operations", icon: Folder },
     ],
   },
   {
-    label: "Intelligence",
+    label: "Documents",
     items: [
-      { href: "/admin/operations", label: "Operations", icon: Folder },
+      { href: "/admin/upload", label: "Upload Document", icon: Upload },
+      { href: "/admin/documents", label: "Document Registry", icon: FileText },
+      { href: "/admin/documents/bulk", label: "Bulk Edit", icon: CheckSquare },
+    ],
+  },
+  {
+    label: "Media",
+    items: [
+      { href: "/admin/media/batch", label: "Batch Ingest", icon: Layers },
+      { href: "/admin/media", label: "Media Archive", icon: Image },
+    ],
+  },
+  {
+    label: "Taxonomy",
+    items: [
+      { href: "/admin/tags", label: "Tag Manager", icon: Tag },
     ],
   },
 ];

@@ -35,7 +35,6 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className={`${inter.variable} ${mono.variable} font-sans antialiased`}>
         <Providers>
-          <RadarBackground />
           <CRTOverlay />
           <Noise />
           <TerminalLoader />

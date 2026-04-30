@@ -64,7 +64,7 @@ const PROJECT_DATA: Record<string, {
     sourceUrl: "https://www.cia.gov/readingroom/document/cia-rdp96-00788r001700210016-5",
   },
   "blue-beam": {
-    slug: "blue-beam", name: "Project Blue Beam", codename: "BLUE BEAM",
+    slug: "blue-beam", name: "Project 812-B", codename: "BLUE BEAM",
     agency: "NASA / Department of Defense", agencyColor: "#0000ff",
     classification: "UNACKNOWLEDGED", years: "1983–Ongoing", coverColor: "#000033",
     tags: ["hologram", "invasion", "disinformation", "mind-control"],
@@ -93,7 +93,7 @@ const PROJECT_DATA: Record<string, {
     sourceUrl: "https://www.nasa.gov/",
   },
   "highjump": {
-    slug: "highjump", name: "Operation Highjump", codename: "HIGHJUMP",
+    slug: "highjump", name: "Operation 68-H", codename: "HIGHJUMP",
     agency: "US Navy / Task Force 68", agencyColor: "#000080",
     classification: "DECLASSIFIED // PARTIAL", years: "1946–1947", coverColor: "#001a33",
     tags: ["antarctica", "admiral-byrd", "base-211", "expedition"],
@@ -120,7 +120,7 @@ const PROJECT_DATA: Record<string, {
     sourceUrl: "https://www.history.navy.mil/",
   },
   "condign": {
-    slug: "condign", name: "Project Condign", codename: "CONDIGN",
+    slug: "condign", name: "Project DI-55", codename: "CONDIGN",
     agency: "UK Ministry of Defence (DI55)", agencyColor: "#cc0000",
     classification: "DECLASSIFIED", years: "1997–2000", coverColor: "#330000",
     tags: ["uk", "mod", "plasma", "uap"],
@@ -148,7 +148,7 @@ const PROJECT_DATA: Record<string, {
     sourceUrl: "https://www.nationalarchives.gov.uk/",
   },
   "blue-book": {
-    slug: "blue-book", name: "Project Blue Book", codename: "BLUE BOOK",
+    slug: "blue-book", name: "Project 13", codename: "BLUE BOOK",
     agency: "United States Air Force", agencyColor: "#004080",
     classification: "DECLASSIFIED", years: "1952–1969", coverColor: "#001a33",
     tags: ["ufo", "usaf", "investigation", "aerial-phenomena"],
@@ -194,7 +194,7 @@ const PROJECT_DATA: Record<string, {
     sourceUrl: "https://www.archives.gov/research/military/air-force/ufos",
   },
   "stargate": {
-    slug: "stargate", name: "Project Stargate", codename: "STARGATE",
+    slug: "stargate", name: "Project 96-007", codename: "STARGATE",
     agency: "CIA / Defense Intelligence Agency", agencyColor: "#660066",
     classification: "DECLASSIFIED", years: "1972–1995", coverColor: "#220022",
     tags: ["remote-viewing", "psychic", "cia", "dia", "esp"],
@@ -236,7 +236,7 @@ const PROJECT_DATA: Record<string, {
     sourceUrl: "https://www.cia.gov/readingroom/collection/stargate",
   },
   "majestic": {
-    slug: "majestic", name: "Majestic 12", codename: "MAJESTIC",
+    slug: "majestic", name: "Project 54-12", codename: "MAJESTIC",
     agency: "Inter-Agency Committee (MJ-12)", agencyColor: "#ff3333",
     classification: "ULTRA TOP SECRET // MAJIC", years: "1947–Ongoing", coverColor: "#1a0000",
     tags: ["mj12", "roswell", "truman", "crash-retrieval", "shadow-government"],
@@ -277,7 +277,7 @@ const PROJECT_DATA: Record<string, {
     sourceUrl: "https://www.majesticdocuments.com/",
   },
   "aquarius": {
-    slug: "aquarius", name: "Project Aquarius", codename: "AQUARIUS",
+    slug: "aquarius", name: "Project 77-Q", codename: "AQUARIUS",
     agency: "National Security Agency (NSA)", agencyColor: "#009999",
     classification: "TOP SECRET // MAJIC", years: "1977–Present", coverColor: "#002b2b",
     tags: ["aquarius", "ebe", "nsa", "extraterrestrial", "recovery"],
@@ -318,7 +318,7 @@ const PROJECT_DATA: Record<string, {
     sourceUrl: "https://www.nsa.gov/portals/75/documents/news-features/declassified-documents/ufo/",
   },
   "sigma": {
-    slug: "sigma", name: "Project Sigma", codename: "SIGMA",
+    slug: "sigma", name: "Operation 59-S", codename: "SIGMA",
     agency: "National Security Agency (NSA)", agencyColor: "#006633",
     classification: "TOP SECRET // SIGMA", years: "1954–Present", coverColor: "#001a0d",
     tags: ["sigma", "communication", "eti", "nsa", "contact"],
@@ -348,7 +348,7 @@ const PROJECT_DATA: Record<string, {
     sourceUrl: "https://www.nsa.gov/",
   },
   "mkultra": {
-    slug: "mkultra", name: "Project MKUltra", codename: "MKULTRA",
+    slug: "mkultra", name: "Project 53-U", codename: "MKULTRA",
     agency: "Central Intelligence Agency (CIA)", agencyColor: "#0066cc",
     classification: "DECLASSIFIED // REDACTED", years: "1953–1973", coverColor: "#1a0033",
     tags: ["mind-control", "lsd", "cia", "human-experiments"],
@@ -376,7 +376,7 @@ const PROJECT_DATA: Record<string, {
     sourceUrl: "https://www.cia.gov/readingroom/collection/mkultra",
   },
   "paperclip": {
-    slug: "paperclip", name: "Operation Paperclip", codename: "PAPERCLIP",
+    slug: "paperclip", name: "Operation 45-P", codename: "PAPERCLIP",
     agency: "OSS / Joint Intelligence Objectives Agency", agencyColor: "#333399",
     classification: "DECLASSIFIED", years: "1945–1959", coverColor: "#00001a",
     tags: ["nazi", "nasa", "rocket-science", "cold-war"],
@@ -403,7 +403,7 @@ const PROJECT_DATA: Record<string, {
     sourceUrl: "https://www.archives.gov/",
   },
   "mogul": {
-    slug: "mogul", name: "Project Mogul", codename: "MOGUL",
+    slug: "mogul", name: "Project 4-M", codename: "MOGUL",
     agency: "US Air Force", agencyColor: "#004080",
     classification: "DECLASSIFIED", years: "1947–1948", coverColor: "#001a33",
     tags: ["balloon", "roswell", "surveillance", "ussr"],
@@ -429,7 +429,7 @@ const PROJECT_DATA: Record<string, {
     sourceUrl: "https://media.defense.gov/",
   },
   "aatip": {
-    slug: "aatip", name: "Advanced Aerospace Threat ID Program", codename: "AATIP",
+    slug: "aatip", name: "Project 3892", codename: "AATIP",
     agency: "Department of Defense (DoD)", agencyColor: "#333399",
     classification: "DECLASSIFIED // PARTIAL", years: "2007–2012", coverColor: "#1a1a4d",
     tags: ["uap", "pentagon", "elizondo", "tic-tac"],
@@ -459,7 +459,7 @@ const PROJECT_DATA: Record<string, {
     sourceUrl: "https://www.defense.gov/",
   },
   "sign": {
-    slug: "sign", name: "Project Sign", codename: "SIGN",
+    slug: "sign", name: "Project 47-S", codename: "SIGN",
     agency: "US Air Force", agencyColor: "#004080",
     classification: "DECLASSIFIED", years: "1947–1949", coverColor: "#001a33",
     tags: ["usaf", "1947", "interplanetary", "estimate"],
@@ -485,7 +485,7 @@ const PROJECT_DATA: Record<string, {
     sourceUrl: "https://www.afhra.af.mil/",
   },
   "grudge": {
-    slug: "grudge", name: "Project Grudge", codename: "GRUDGE",
+    slug: "grudge", name: "Project 49-G", codename: "GRUDGE",
     agency: "US Air Force", agencyColor: "#004080",
     classification: "DECLASSIFIED", years: "1949–1951", coverColor: "#001a33",
     tags: ["usaf", "debunking", "ufo"],
@@ -511,7 +511,7 @@ const PROJECT_DATA: Record<string, {
     sourceUrl: "https://www.archives.gov/",
   },
   "moon-dust": {
-    slug: "moon-dust", name: "Operation Moon Dust", codename: "MOON DUST",
+    slug: "moon-dust", name: "Operation 53-M", codename: "MOON DUST",
     agency: "USAF / CIA", agencyColor: "#004080",
     classification: "TOP SECRET", years: "1953–Present", coverColor: "#1a1a1a",
     tags: ["recovery", "debris", "space", "crash"],
@@ -532,7 +532,7 @@ const PROJECT_DATA: Record<string, {
     sourceUrl: "https://www.archives.gov/"
   },
   "corona": {
-    slug: "corona", name: "Project Corona", codename: "CORONA",
+    slug: "corona", name: "Project 1101", codename: "CORONA",
     agency: "CIA / NRO", agencyColor: "#003366",
     classification: "DECLASSIFIED", years: "1959–1972", coverColor: "#001122",
     tags: ["satellite", "surveillance", "spy", "cold-war"],
@@ -553,7 +553,7 @@ const PROJECT_DATA: Record<string, {
     sourceUrl: "https://www.cia.gov/"
   },
   "magnet": {
-    slug: "magnet", name: "Project Magnet", codename: "MAGNET",
+    slug: "magnet", name: "Project 50-M", codename: "MAGNET",
     agency: "Transport Canada", agencyColor: "#cc0000",
     classification: "DECLASSIFIED", years: "1950–1954", coverColor: "#330000",
     tags: ["canada", "propulsion", "magnetic", "wilbert-smith"],
@@ -574,7 +574,7 @@ const PROJECT_DATA: Record<string, {
     sourceUrl: "https://www.bac-lac.gc.ca/"
   },
   "second-storey": {
-    slug: "second-storey", name: "Project Second Storey", codename: "SECOND STOREY",
+    slug: "second-storey", name: "Project 52-S", codename: "SECOND STOREY",
     agency: "DRB Canada", agencyColor: "#800000",
     classification: "DECLASSIFIED", years: "1952–1954", coverColor: "#220000",
     tags: ["canada", "intelligence", "threat-assessment"],
@@ -595,7 +595,7 @@ const PROJECT_DATA: Record<string, {
     sourceUrl: "https://www.bac-lac.gc.ca/"
   },
   "cometa": {
-    slug: "cometa", name: "COMETA Report", codename: "COMETA",
+    slug: "cometa", name: "Report 99-C", codename: "COMETA",
     agency: "French Intelligence / CNES", agencyColor: "#0055a4",
     classification: "PUBLIC", years: "1999", coverColor: "#002244",
     tags: ["france", "official-report", "eth", "military"],
@@ -1008,7 +1008,7 @@ const PROJECT_DATA: Record<string, {
     sourceUrl: "https://www.nsa.gov/"
   },
   "looking-glass": {
-    slug: "looking-glass", name: "Project Looking Glass", codename: "LOOKING GLASS",
+    slug: "looking-glass", name: "Operation 61-L", codename: "LOOKING GLASS",
     agency: "Strategic Air Command", agencyColor: "#333333",
     classification: "DECLASSIFIED", years: "1961–1990", coverColor: "#1a1a1a",
     tags: ["command-post", "nuclear", "airborne", "sac"],
@@ -1029,7 +1029,7 @@ const PROJECT_DATA: Record<string, {
     sourceUrl: "https://www.stratcom.mil/"
   },
   "solar-warden": {
-    slug: "solar-warden", name: "Project Solar Warden", codename: "SOLAR WARDEN",
+    slug: "solar-warden", name: "Project 4127", codename: "SOLAR WARDEN",
     agency: "US Space Command (Alleged)", agencyColor: "#000033",
     classification: "ULTRA TOP SECRET", years: "1980–Present", coverColor: "#00001a",
     tags: ["space-fleet", "secret-space-program", "carrier"],
@@ -1178,9 +1178,12 @@ export default function ProjectDetailPage() {
           <div className="flex items-start justify-between gap-4 mb-6">
             <div>
               <div className="font-mono text-[9px] text-white/30 uppercase tracking-widest mb-2">{project.agency} // {project.years}</div>
-              <div className="font-mono text-sm text-white/40 uppercase tracking-widest mb-1">CODENAME</div>
-              <h1 className="font-mono text-5xl font-black tracking-tighter text-white">{project.codename}</h1>
-              <p className="font-mono text-lg text-white/50 mt-1">{project.name}</p>
+              <div className="font-mono text-[10px] text-white/40 uppercase tracking-[0.3em] mb-1">CODENAME</div>
+              <h1 className="font-mono text-5xl font-black tracking-tighter text-white mb-2 italic">{project.codename}</h1>
+              <div className="flex items-center gap-3">
+                <div className="px-2 py-0.5 bg-white/5 border border-white/10 rounded font-mono text-[9px] text-white/30 uppercase tracking-widest">REAL_ID</div>
+                <p className="font-mono text-xl text-white/60 tracking-widest">{project.name.replace('Project ', '').replace('Operation ', '')}</p>
+              </div>
             </div>
             <span className="font-mono text-[10px] px-3 py-1.5 rounded-lg border uppercase tracking-widest shrink-0 mt-2"
               style={{ color: classColor, borderColor: `${classColor}40`, backgroundColor: `${classColor}10` }}>

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Lock, Unlock, ArrowLeft, Download, FileText, Tag, Calendar, Building2 } from "lucide-react";
+import { Lock, Unlock, ArrowLeft, Download, FileText, Tag, Calendar, Building2, Star } from "lucide-react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
@@ -164,6 +164,13 @@ export function DocumentViewer({ document: doc }: { document: DocData }) {
                     ))}
                   </div>
                 </div>
+
+                <div className="pt-4 border-t border-white/5">
+                  <div className="font-mono text-[9px] text-white/30 uppercase tracking-widest mb-2 flex items-center gap-1">
+                    <Star className="w-3 h-3" /> Asset_Rating
+                  </div>
+                  <StarRating docId={doc.id} initialStars={doc.stars || 0} />
+                </div>
               </div>
 
               {/* Interactive Download/Export */}
@@ -197,6 +204,59 @@ export function DocumentViewer({ document: doc }: { document: DocData }) {
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+function StarRating({ docId, initialStars }: { docId: string; initialStars: number }) {
+  const [stars, setStars] = useState(initialStars);
+  const [hasVoted, setHasVoted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const voted = localStorage.getItem(`voted_${docId}`);
+    if (voted) setHasVoted(true);
+  }, [docId]);
+
+  const handleVote = async () => {
+    if (hasVoted || loading) return;
+    setLoading(true);
+    try {
+      const res = await fetch(`/api/documents/${docId}/star`, { method: "POST" });
+      if (res.ok) {
+        const data = await res.json();
+        setStars(data.stars);
+        setHasVoted(true);
+        localStorage.setItem(`voted_${docId}`, "true");
+      }
+    } catch (err) {
+      console.error("VOTE_ERROR", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="flex items-center justify-between gap-3 bg-white/5 border border-white/10 rounded-lg p-3">
+      <div className="flex items-center gap-2">
+        <Star 
+          className={`w-4 h-4 transition-all ${
+            hasVoted ? "fill-yellow-500 text-yellow-500" : "text-white/20"
+          }`}
+        />
+        <span className="font-mono text-xs text-white">{stars}</span>
+      </div>
+      <button
+        onClick={handleVote}
+        disabled={hasVoted || loading}
+        className={`px-3 py-1 rounded-md font-mono text-[9px] uppercase tracking-widest transition-all ${
+          hasVoted 
+            ? "text-yellow-500/50 cursor-default" 
+            : "text-white/40 hover:text-white hover:bg-white/5"
+        }`}
+      >
+        {loading ? "..." : hasVoted ? "STARRED" : "STAR"}
+      </button>
     </div>
   );
 }

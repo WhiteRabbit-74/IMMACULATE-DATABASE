@@ -1,0 +1,45 @@
+Ecco un riepilogo tecnico ultra-distillato per un'intelligenza artificiale (Claude/Antigravity) che riprenderà il lavoro a freddo.
+
+# 🛰️ INTELLIGENCE HUB: COLD START SUMMARY (FASE 5)
+
+### 1. OBIETTIVO ORIGINALE
+Costruire un portale di intelligence declassificata ("Intelligence Documentation Hub") per l'archiviazione e la visualizzazione forense di documenti e media UAP/NHI. Estetica: "Deep-Black", terminale militare, immersiva.
+
+### 2. ARCHITETTURA & DECISIONI CHIAVE
+*   **Stack**: Next.js (App Router), Tailwind CSS (estetica custom), Prisma (SQLite local storage).
+*   **Navigazione**: Il menu `Project Focus` è stato stabilizzato a **12 Progetti Core** hardcoded per mantenere pulizia visiva, nonostante l'espansione del database.
+*   **Media Storage**: I media sono gestiti localmente con metadati SQL (Latitudine, Longitudine, Sensore, Fonte).
+*   **UI Lightbox**: Fissato lo `z-index` a **9999** e il bottone Close a **10000** per sovrascrivere l'header principale globale ed evitare blocchi visivi su immagini alte.
+
+### 3. STATO DEL DATABASE & CONFIGURAZIONE SETTATA
+Abbiamo pulito il database dai duplicati e stabilizzato i **5 Nuovi Progetti Deep-Black** nel `ProjectRegistry.tsx`.
+
+```typescript
+// Esempio di un Progetto Deep-Black stabilizzato nel Registry
+{ 
+  id: "trident", 
+  name: "Project TRIDENT", 
+  codename: "USO_RECOVERY", 
+  type: "UFO", 
+  status: "ACTIVE", 
+  clearance: "BEYOND BLACK", 
+  description: "Naval operations for the recovery and tracking of USOs.",
+  objective: "Capture and reverse-engineer trans-medium propulsion systems."
+}
+```
+
+### 4. HOTFIX RECENTI (APPLICATI)
+*   **Dossier Crash**: Risolto `TypeError: Illegal constructor` aggiungendo l'import `Lock` in `DossierEvolution.tsx`.
+*   **Lightbox Bug**: Spostato l'`Asset_ID` in alto a sinistra e reso il tasto `CLOSE` indipendente dallo scroll (posizionamento assoluto sull'overlay `fixed`).
+*   **Data Cleanup**: Eliminati i tag ghost (`TIME_STUTTER`, `DEEP_BLUE`) che creavano cloni nei registry.
+
+### 5. PROSSIMI PASSI (ROADMAP APPROVATA)
+L'attività riprenderà dall'**Esecuzione della Fase 5**:
+1.  **Mass Metadata Editor**: Sviluppo interfaccia per editing bulk di tag/status in `admin/documents`.
+2.  **Batch Uploader**: Implementazione Drag & Drop multiplo in `admin/upload`.
+3.  **Duplicate Scanner**: Logica di pre-scansione hash/file-name per prevenire doppioni nel DB.
+4.  **Custom Taxonomy Builder**: Pannello CRUD per i Tag in `admin/tags`.
+5.  **Interactive Map Pins**: Bottone "View on Map" nel Dossier per linkare la Mappa 3D.
+6.  **Timeline Viewer (Sperimentale)**: Visualizzazione cronologica 1940-2026 isolata in `/timeline`.
+
+**Sistema pronto per l'implementazione del pannello Admin avanzato.** 🚀🛰️

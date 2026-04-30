@@ -27,6 +27,7 @@ interface MediaItem {
 const CATEGORIES = [
   { key: "", label: "All Assets", emoji: "🗂️" },
   { key: "photo", label: "Photography", emoji: "📷" },
+  { key: "event", label: "Incursion Events", emoji: "🚨" },
   { key: "satellite", label: "Satellite", emoji: "🛰️" },
   { key: "thermal", label: "Thermal / IR", emoji: "🌡️" },
   { key: "video", label: "Video", emoji: "📹" },
@@ -37,6 +38,7 @@ const CATEGORIES = [
 
 const CATEGORY_COLORS: Record<string, string> = {
   photo: "#00ff00",
+  event: "#ff0000",
   satellite: "#0088ff",
   thermal: "#ff6600",
   video: "#ff3399",
@@ -52,6 +54,7 @@ export default function MediaPage() {
   const [category, setCategory] = useState("");
   const [lightbox, setLightbox] = useState<MediaItem | null>(null);
   const [search, setSearch] = useState("");
+  const [subEvent, setSubEvent] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState<"date" | "stars">("date");
 
   const handleStar = async (e: React.MouseEvent, item: MediaItem) => {
@@ -80,10 +83,26 @@ export default function MediaPage() {
 
   const filtered = [...media]
     .filter((m: MediaItem) => {
+      let matchesCategory = true;
+      if (category) {
+        if (category === "event") {
+          // Special logic for events: search in tags or title
+          matchesCategory = m.tags?.toLowerCase().includes("event") || 
+                           ["roswell", "nimitz", "rendlesham", "gimbal", "mcminnville"].some(evt => m.title.toLowerCase().includes(evt));
+        } else {
+          matchesCategory = m.category === category;
+        }
+      }
+
       const matchesSearch = !search || 
         m.title.toLowerCase().includes(search.toLowerCase()) ||
         m.tags?.toLowerCase().includes(search.toLowerCase());
-      return matchesSearch;
+      
+      const matchesSubEvent = !subEvent || 
+        m.tags?.toLowerCase().includes(subEvent.toLowerCase()) ||
+        m.title.toLowerCase().includes(subEvent.toLowerCase());
+
+      return matchesSearch && matchesSubEvent && matchesCategory;
     })
     .sort((a, b) => {
       if (sortBy === "stars") return (b.stars || 0) - (a.stars || 0);
@@ -139,7 +158,7 @@ export default function MediaPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex items-center justify-center p-6"
+            className="fixed inset-0 z-[9999] bg-black/80 backdrop-blur-3xl flex items-center justify-center p-4 md:p-10"
             onClick={() => setLightbox(null)}
           >
             {/* Navigation Arrows */}
@@ -160,120 +179,133 @@ export default function MediaPage() {
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9 }}
-              className="relative max-w-5xl w-full"
+              className="relative max-w-7xl w-full h-auto max-h-[92vh] bg-[#030303]/98 backdrop-blur-3xl rounded-3xl border border-white/[0.08] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.9)] flex flex-col md:flex-row ring-1 ring-white/5"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="absolute -top-12 right-0 flex items-center gap-4">
-                {(session?.user?.role === "ADMIN" || session?.user?.email === "admin@intel.gov") && (
-                  <Link
-                    href={`/admin/media/${lightbox.id}`}
-                    className="p-2 text-red-400/60 hover:text-red-400 transition-colors flex items-center gap-2 font-mono text-xs border border-red-500/20 bg-red-500/5 rounded-lg"
-                  >
-                    <Edit3 className="w-4 h-4" />
-                    EDIT (ADMIN)
-                  </Link>
-                )}
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={(e) => handleStar(e, lightbox)}
-                    className="p-2 text-yellow-400 hover:text-yellow-300 transition-colors flex items-center gap-2 font-mono text-xs border border-yellow-500/20 bg-yellow-500/5 rounded-lg"
-                  >
-                    <span className="text-sm">★</span>
-                    {lightbox.stars || 0}
-                  </button>
-                  <button
-                    onClick={() => setLightbox(null)}
-                    className="p-2 text-white/60 hover:text-white transition-colors flex items-center gap-2 font-mono text-xs"
-                  >
-                    <X className="w-5 h-5" />
-                    CLOSE
-                  </button>
-                </div>
-              </div>
-
-              {lightbox.type === "image" ? (
-                <img
-                  src={lightbox.filePath}
-                  alt={lightbox.title}
-                  className="w-full max-h-[70vh] object-contain rounded-xl border border-white/10"
-                />
-              ) : lightbox.type === "video" ? (
-                <video
-                  src={lightbox.filePath}
-                  controls
-                  autoPlay
-                  className="w-full max-h-[70vh] rounded-xl border border-white/10"
-                />
-              ) : (
-                <div className="bg-black/60 border border-white/10 rounded-xl p-8 flex flex-col items-center gap-4">
-                  <Music className="w-16 h-16 text-purple-400" />
-                  <audio src={lightbox.filePath} controls className="w-full" />
-                </div>
-              )}
-
-              <div className="mt-6 flex flex-col md:flex-row items-start justify-between gap-6 border-t border-white/5 pt-6">
-                <div className="flex-1 space-y-4">
-                  <div>
-                    <div className="font-mono text-xl font-bold text-white uppercase tracking-tight">{lightbox.title}</div>
-                    {lightbox.description && (
-                      <p className="font-mono text-xs text-white/50 mt-2 leading-relaxed max-w-2xl italic">
-                        "{lightbox.description}"
-                      </p>
-                    )}
+              {/* LEFT TACTICAL SIDEBAR */}
+              <div className="w-full md:w-[350px] border-b md:border-b-0 md:border-r border-white/10 bg-black/40 p-8 flex flex-col gap-8 overflow-y-auto custom-scrollbar shrink-0">
+                {/* Identification */}
+                <div className="space-y-4">
+                  <div className="space-y-1">
+                    <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-[#00ff00]/10 text-[#00ff00] border border-[#00ff00]/30 font-black tracking-widest uppercase">
+                      {lightbox.category}
+                    </span>
+                    <h3 className="font-mono text-2xl font-black text-white uppercase tracking-tighter leading-tight pt-2">{lightbox.title}</h3>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <div className="font-mono text-[10px] text-red-500 font-black tracking-[0.3em] uppercase">Security_Clearance</div>
+                    <div className="bg-red-500/10 border border-red-500/30 p-3 rounded-lg">
+                        <div className="font-mono text-lg text-red-500 font-black tracking-tighter">TOP_SECRET</div>
+                        <div className="font-mono text-[8px] text-red-500/40 mt-1 uppercase">NODE_ID: {lightbox.id.slice(-12)}</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Intel Description */}
+                <div className="space-y-3 bg-white/[0.03] p-4 rounded-xl border border-white/5">
+                   <div className="font-mono text-[9px] text-white/30 uppercase tracking-widest">Forensic_Analysis</div>
+                   <p className="font-mono text-xs text-white/70 leading-relaxed italic">
+                      "{lightbox.description}"
+                   </p>
+                </div>
+
+                {/* Technical Parameters */}
+                <div className="space-y-4">
+                  <div className="font-mono text-[10px] text-white/20 uppercase tracking-widest border-b border-white/5 pb-2">Technical_Parameters</div>
+                  
+                  <div className="grid grid-cols-2 gap-4">
                     {lightbox.sensor && (
-                      <div className="bg-white/5 rounded-xl p-3 border border-white/5">
-                        <div className="font-mono text-[9px] text-[#00ff00]/60 uppercase tracking-widest mb-1">Recon_Sensor</div>
-                        <div className="font-mono text-xs text-white uppercase">{lightbox.sensor}</div>
+                      <div className="space-y-1">
+                        <div className="font-mono text-[9px] text-[#00ff00]/60 uppercase font-bold">Sensor</div>
+                        <div className="font-mono text-[10px] text-white/90 uppercase truncate">{lightbox.sensor}</div>
                       </div>
                     )}
                     {lightbox.source && (
-                      <div className="bg-white/5 rounded-xl p-3 border border-white/5">
-                        <div className="font-mono text-[9px] text-blue-400/60 uppercase tracking-widest mb-1">Tracking_Source</div>
-                        <div className="font-mono text-xs text-white uppercase">{lightbox.source}</div>
+                      <div className="space-y-1">
+                        <div className="font-mono text-[9px] text-blue-400/60 uppercase font-bold">Source</div>
+                        <div className="font-mono text-[10px] text-white/90 uppercase truncate">{lightbox.source}</div>
                       </div>
                     )}
                     {lightbox.country && (
-                      <div className="bg-white/5 rounded-xl p-3 border border-white/5">
-                        <div className="font-mono text-[9px] text-amber-400/60 uppercase tracking-widest mb-1">Geospatial_Origin</div>
-                        <div className="font-mono text-xs text-white uppercase">{lightbox.country}</div>
+                      <div className="space-y-1">
+                        <div className="font-mono text-[9px] text-amber-400/60 uppercase font-bold">Origin</div>
+                        <div className="font-mono text-[10px] text-white/90 uppercase truncate">{lightbox.country}</div>
                       </div>
                     )}
                     {lightbox.year && (
-                      <div className="bg-white/5 rounded-xl p-3 border border-white/5">
-                        <div className="font-mono text-[9px] text-purple-400/60 uppercase tracking-widest mb-1">Temporal_Stamp</div>
-                        <div className="font-mono text-xs text-white uppercase">{lightbox.year}</div>
+                      <div className="space-y-1">
+                        <div className="font-mono text-[9px] text-purple-400/60 uppercase font-bold">Stamp</div>
+                        <div className="font-mono text-[10px] text-white/90 uppercase">{lightbox.year}</div>
                       </div>
                     )}
                   </div>
-
-                  {lightbox.tags && (
-                    <div className="flex flex-wrap gap-1.5 mt-2">
-                      {lightbox.tags.split(",").map((t: string) => t.trim()).filter(Boolean).map((t: string) => (
-                        <span key={t} className="font-mono text-[9px] bg-white/5 text-white/40 px-2 py-0.5 rounded border border-white/5">
-                          #{t}
-                        </span>
-                      ))}
-                    </div>
-                  )}
                 </div>
 
-                <div className="flex flex-col items-end gap-3 min-w-[140px]">
-                  <span
-                    className="font-mono text-[10px] px-3 py-1.5 rounded uppercase tracking-wider border font-bold"
-                    style={{
-                      color: CATEGORY_COLORS[lightbox.category] || "#fff",
-                      borderColor: `${CATEGORY_COLORS[lightbox.category]}30` || "#fff3",
-                      backgroundColor: `${CATEGORY_COLORS[lightbox.category]}10` || "#fff1",
-                    }}
+                {/* Tags */}
+                {lightbox.tags && (
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {lightbox.tags.split(",").map(t => t.trim()).filter(Boolean).map(t => (
+                      <span key={t} className="font-mono text-[9px] text-[#00ff00]/30 hover:text-[#00ff00] transition-colors cursor-default">#{t}</span>
+                    ))}
+                  </div>
+                )}
+
+                {/* Actions */}
+                <div className="mt-auto pt-6 space-y-3">
+                  <button
+                    onClick={(e) => handleStar(e, lightbox)}
+                    className="w-full px-4 py-2.5 text-yellow-400 hover:text-yellow-300 transition-colors flex items-center justify-between font-mono text-[10px] border border-yellow-500/20 bg-yellow-500/5 rounded-xl font-black tracking-widest uppercase"
                   >
-                    {lightbox.category}
-                  </span>
-                  <div className="text-right">
-                    <div className="font-mono text-[9px] text-white/20 uppercase tracking-widest">Asset_ID</div>
-                    <div className="font-mono text-[10px] text-white/40 uppercase">{lightbox.id.slice(-12)}</div>
+                    <span>Rating</span>
+                    <span className="flex items-center gap-1">★ {lightbox.stars || 0}</span>
+                  </button>
+                  
+                  {(session?.user?.role === "ADMIN" || session?.user?.email === "admin@intel.gov") && (
+                    <Link
+                      href={`/admin/media/${lightbox.id}`}
+                      className="w-full px-4 py-2.5 text-red-400/80 hover:text-red-400 transition-colors flex items-center justify-center gap-3 font-mono text-[10px] border border-red-500/20 bg-red-500/5 rounded-xl font-black tracking-widest uppercase"
+                    >
+                      <Edit3 className="w-3 h-3" />
+                      Modify_Record
+                    </Link>
+                  )}
+                </div>
+              </div>
+
+              {/* MAIN CONTENT AREA */}
+              <div className="flex-1 flex flex-col bg-black overflow-hidden relative">
+                <button
+                  onClick={(e) => { e.stopPropagation(); setLightbox(null); }}
+                  className="absolute top-6 right-6 z-[100] p-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-white/40 hover:text-white transition-all backdrop-blur-md"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+
+                {/* Asset Display */}
+                <div className="w-full h-full flex items-center justify-center bg-black">
+                  {lightbox.type === "image" ? (
+                    <img
+                      src={lightbox.filePath}
+                      alt={lightbox.title}
+                      className="w-full h-full object-contain"
+                    />
+                  ) : lightbox.type === "video" ? (
+                    <video
+                      src={lightbox.filePath}
+                      controls
+                      autoPlay
+                      className="w-full h-full object-contain"
+                    />
+                  ) : (
+                    <div className="flex flex-col items-center gap-6">
+                      <Music className="w-24 h-24 text-purple-400 animate-pulse" />
+                      <audio src={lightbox.filePath} controls className="w-full max-w-md" />
+                    </div>
+                  )}
+
+                  <div className="absolute bottom-6 right-6 font-mono text-[8px] text-[#00ff00]/40 uppercase tracking-[0.4em] bg-black/40 px-3 py-1 rounded border border-white/5">
+                    SECURE_NODE // {lightbox.id.slice(-6)}
                   </div>
                 </div>
               </div>
@@ -352,7 +384,11 @@ export default function MediaPage() {
             {CATEGORIES.map((cat) => (
               <button
                 key={cat.key || "all"}
-                onClick={() => setCategory(cat.key)}
+                onClick={() => {
+                  setCategory(cat.key);
+                  // Reset event filter if switching categories
+                  if (cat.key !== "event") setSubEvent(null);
+                }}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-mono text-xs uppercase tracking-wider transition-all border ${
                   category === cat.key
                     ? "text-white border-white/30 bg-white/10"
@@ -373,6 +409,39 @@ export default function MediaPage() {
               </button>
             ))}
           </div>
+
+          {/* Sub-Event Filters (Only visible if 'event' is active) */}
+          <AnimatePresence>
+            {category === "event" && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                className="overflow-hidden"
+              >
+                <div className="flex items-center gap-3 py-3 border-t border-b border-white/5 mt-2">
+                  <span className="font-mono text-[9px] text-white/30 uppercase tracking-[0.2em] shrink-0">
+                    Tactical_Operations:
+                  </span>
+                  <div className="flex items-center gap-2 overflow-x-auto scrollbar-none pb-1">
+                    {["Roswell", "Nimitz", "Rendlesham", "Gimbal", "McMinnville"].map((evt) => (
+                      <button
+                        key={evt}
+                        onClick={() => setSubEvent(subEvent === evt ? null : evt)}
+                        className={`px-3 py-1 rounded-full font-mono text-[9px] uppercase tracking-widest transition-all border ${
+                          subEvent === evt
+                            ? "bg-[#ff0000]/20 text-[#ff0000] border-[#ff0000]/40"
+                            : "text-white/30 border-white/10 hover:border-white/20 hover:text-white/60"
+                        }`}
+                      >
+                        {evt}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         {/* Grid */}
@@ -433,14 +502,14 @@ export default function MediaPage() {
                   {/* Category badge */}
                   <div className="absolute top-2 left-2 flex items-center gap-1">
                     <span
-                      className="font-mono text-[8px] px-1.5 py-0.5 rounded uppercase backdrop-blur-sm border"
+                      className="font-mono text-[9px] px-2 py-0.5 rounded uppercase backdrop-blur-md border font-black tracking-widest"
                       style={{
                         color: CATEGORY_COLORS[item.category] || "#fff",
                         borderColor: `${CATEGORY_COLORS[item.category]}40` || "#fff2",
-                        backgroundColor: "rgba(0,0,0,0.7)",
+                        backgroundColor: "rgba(0,0,0,0.8)",
                       }}
                     >
-                      {item.category}
+                      {item.category === "photo" ? "PHOTO" : item.category.toUpperCase()}
                     </span>
                     {(session?.user?.role === "ADMIN" || session?.user?.email === "admin@intel.gov") && (
                       <Link

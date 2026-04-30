@@ -180,7 +180,7 @@ export default function AdminMediaRegistry() {
                 
                 <div className="flex items-center gap-2 pt-3 border-t border-white/5 mt-auto">
                   <Link 
-                    href={`/media`}
+                    href={`/media?id=${item.id}`}
                     className="flex-1 flex items-center justify-center gap-2 py-2 bg-white/5 hover:bg-white/10 rounded-lg font-mono text-[10px] text-white/60 hover:text-white transition-all"
                   >
                     <Eye className="w-3 h-3" /> View

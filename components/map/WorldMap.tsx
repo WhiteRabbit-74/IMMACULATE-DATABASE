@@ -54,6 +54,7 @@ interface Props {
 
 export default function WorldMap({ documents, anomalies, media = [], onSelect, selected }: Props) {
   const [tooltip, setTooltip] = useState<{ x: number; y: number; text: string } | null>(null);
+  const [position, setPosition] = useState({ coordinates: [10, 10] as [number, number], zoom: 1 });
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     if (tooltip) {
@@ -61,13 +62,23 @@ export default function WorldMap({ documents, anomalies, media = [], onSelect, s
     }
   }, [tooltip]);
 
+  const handleMoveEnd = (pos: { coordinates: [number, number]; zoom: number }) => {
+    setPosition(pos);
+  };
+
   return (
     <div className="w-full h-full relative" onMouseMove={handleMouseMove}>
       <ComposableMap
         style={{ width: "100%", height: "100%", background: "transparent" }}
         projectionConfig={{ scale: 147, center: [10, 10] }}
       >
-        <ZoomableGroup zoom={1} minZoom={0.8} maxZoom={8}>
+        <ZoomableGroup 
+          zoom={position.zoom} 
+          center={position.coordinates}
+          onMoveEnd={handleMoveEnd}
+          minZoom={0.8} 
+          maxZoom={12}
+        >
           <Geographies geography={GEO_URL}>
             {({ geographies }) =>
               geographies.map((geo) => (
@@ -78,13 +89,13 @@ export default function WorldMap({ documents, anomalies, media = [], onSelect, s
                     default: {
                       fill: "#0d1117",
                       stroke: "#1a2a1a",
-                      strokeWidth: 0.5,
+                      strokeWidth: 0.5 / position.zoom,
                       outline: "none",
                     },
                     hover: {
                       fill: "#111a11",
                       stroke: "#00ff00",
-                      strokeWidth: 0.5,
+                      strokeWidth: 0.5 / position.zoom,
                       outline: "none",
                     },
                     pressed: {
@@ -102,6 +113,7 @@ export default function WorldMap({ documents, anomalies, media = [], onSelect, s
             const isSelected = selected?.id === doc.id;
             const color = doc.status === "classified" ? "#ff3333" : "#33ff99";
             const glowColor = doc.status === "classified" ? "rgba(255,51,51,0.5)" : "rgba(51,255,153,0.5)";
+            const size = (isSelected ? 10 : 5) / (position.zoom * 0.7);
 
             return (
               <Marker
@@ -118,23 +130,23 @@ export default function WorldMap({ documents, anomalies, media = [], onSelect, s
                 onMouseLeave={() => setTooltip(null)}
               >
                 <circle
-                  r={isSelected ? 10 : 5}
+                  r={size}
                   fill={color}
                   fillOpacity={0.8}
                   style={{
                     cursor: "pointer",
-                    filter: `drop-shadow(0 0 ${isSelected ? 12 : 4}px ${glowColor})`,
+                    filter: `drop-shadow(0 0 ${isSelected ? 12/position.zoom : 4/position.zoom}px ${glowColor})`,
                     transition: "all 0.2s ease",
                   }}
                 />
                 {isSelected && (
                   <circle
-                    r={16}
+                    r={size * 2.5}
                     fill="none"
                     stroke={color}
-                    strokeWidth={1.5}
+                    strokeWidth={1.5 / position.zoom}
                     strokeOpacity={0.6}
-                    strokeDasharray="4 2"
+                    strokeDasharray={`${4/position.zoom} ${2/position.zoom}`}
                   />
                 )}
               </Marker>
@@ -144,7 +156,7 @@ export default function WorldMap({ documents, anomalies, media = [], onSelect, s
           {/* Anomaly Markers */}
           {anomalies.map((anomaly) => {
             const isSelected = selected?.id === anomaly.id;
-            const size = Math.max(4, anomaly.severity * 2);
+            const size = (Math.max(4, anomaly.severity * 2)) / (position.zoom * 0.7);
 
             return (
               <Marker
@@ -167,19 +179,19 @@ export default function WorldMap({ documents, anomalies, media = [], onSelect, s
                   fillOpacity={0.9}
                   style={{
                     cursor: "pointer",
-                    filter: `drop-shadow(0 0 ${isSelected ? 10 : 5}px rgba(255,170,0,0.7))`,
+                    filter: `drop-shadow(0 0 ${isSelected ? 10/position.zoom : 5/position.zoom}px rgba(255,170,0,0.7))`,
                     transition: "all 0.2s ease",
                   }}
                 />
                 {/* Pulse ring for high severity */}
                 {anomaly.severity >= 4 && (
                   <circle
-                    r={size + 8}
+                    r={size + (8 / position.zoom)}
                     fill="none"
                     stroke="#ffaa00"
-                    strokeWidth={0.8}
+                    strokeWidth={0.8 / position.zoom}
                     strokeOpacity={0.4}
-                    strokeDasharray="3 2"
+                    strokeDasharray={`${3/position.zoom} ${2/position.zoom}`}
                   />
                 )}
               </Marker>
@@ -189,6 +201,7 @@ export default function WorldMap({ documents, anomalies, media = [], onSelect, s
           {/* Media Markers */}
           {media.map((m) => {
             const isSelected = selected?.id === m.id;
+            const size = (isSelected ? 16 : 8) / (position.zoom * 0.7);
             return (
               <Marker
                 key={m.id}
@@ -204,15 +217,15 @@ export default function WorldMap({ documents, anomalies, media = [], onSelect, s
                 onMouseLeave={() => setTooltip(null)}
               >
                 <rect
-                  x={isSelected ? -8 : -4}
-                  y={isSelected ? -8 : -4}
-                  width={isSelected ? 16 : 8}
-                  height={isSelected ? 16 : 8}
+                  x={-size / 2}
+                  y={-size / 2}
+                  width={size}
+                  height={size}
                   fill="#0088ff"
                   fillOpacity={0.9}
                   style={{
                     cursor: "pointer",
-                    filter: `drop-shadow(0 0 ${isSelected ? 10 : 4}px rgba(0,136,255,0.7))`,
+                    filter: `drop-shadow(0 0 ${isSelected ? 10/position.zoom : 4/position.zoom}px rgba(0,136,255,0.7))`,
                     transition: "all 0.2s ease",
                   }}
                 />

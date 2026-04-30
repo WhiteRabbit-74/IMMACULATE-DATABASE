@@ -88,11 +88,11 @@ model Document {
   operationId   String?
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
-  operation     Operation?     @relation(fields: [operationId], references: [id])
+  stars         Int            @default(0)
   agency        Agency         @relation(fields: [agencyId], references: [id])
+  operation     Operation?     @relation(fields: [operationId], references: [id])
   agents        AgentProfile[] @relation("DocumentAgents")
   tags          Tag[]          @relation("DocumentTags")
-  stars         Int            @default(0)
 }
 
 model Tag {

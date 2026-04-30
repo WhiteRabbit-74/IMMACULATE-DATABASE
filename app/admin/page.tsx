@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
-import { FileText, Image, Building2, Upload, TrendingUp, Lock, Unlock, Clock, Shield, Terminal, Activity } from "lucide-react";
+import { FileText, Image, Building2, Upload, TrendingUp, Lock, Unlock, Clock, Shield, Terminal, Activity, Tag, Users, Globe } from "lucide-react";
 import { GlitchTitle } from "@/components/effects/GlitchTitle";
 
 export const dynamic = "force-dynamic";
@@ -41,7 +41,7 @@ export default async function AdminDashboard() {
     { label: "Declassified", value: declassified, icon: Unlock, color: "#00ffaa", href: "/admin/documents?status=declassified" },
     { label: "Agencies", value: totalAgencies, icon: Building2, color: "#0066cc", href: "/admin/agencies" },
     { label: "Media Files", value: totalMedia, icon: Image, color: "#ff6600", href: "/admin/media" },
-    { label: "Legacy OS", value: "1982", icon: Terminal, color: "#00ff00", href: "/admin/legacy-os" },
+    { label: "Tag Manager", value: "CRUD", icon: Tag, color: "#aa00ff", href: "/admin/tags" },
   ];
 
   return (
@@ -55,9 +55,15 @@ export default async function AdminDashboard() {
             Level 5 Clearance // System Status: <span className="text-[#00ff00]">STABLE</span>
           </p>
         </div>
-        <div className="flex gap-4">
+        <div className="flex gap-3 flex-wrap">
            <Link href="/admin/upload" className="px-4 py-2 bg-[#00ff00]/10 border border-[#00ff00]/30 text-[#00ff00] font-mono text-[10px] uppercase tracking-widest rounded-lg hover:bg-[#00ff00]/20 transition-all">
              New_Record
+           </Link>
+           <Link href="/admin/media/batch" className="px-4 py-2 bg-orange-500/10 border border-orange-500/30 text-orange-400 font-mono text-[10px] uppercase tracking-widest rounded-lg hover:bg-orange-500/20 transition-all">
+             Batch_Upload
+           </Link>
+           <Link href="/admin/documents/bulk" className="px-4 py-2 bg-blue-500/10 border border-blue-500/30 text-blue-400 font-mono text-[10px] uppercase tracking-widest rounded-lg hover:bg-blue-500/20 transition-all">
+             Bulk_Edit
            </Link>
            <Link href="/admin/media" className="px-4 py-2 bg-white/5 border border-white/10 text-white/60 font-mono text-[10px] uppercase tracking-widest rounded-lg hover:bg-white/10 transition-all">
              Media_Archive
@@ -66,7 +72,7 @@ export default async function AdminDashboard() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
         {cards.map((card) => (
           <Link
             key={card.label}
