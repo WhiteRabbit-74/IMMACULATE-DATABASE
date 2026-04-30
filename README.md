@@ -63,8 +63,10 @@ We are looking for data researchers, intelligence analysts, and developers to he
 ## 🛡️ Support the Disclosure
 This project is a solo effort dedicated to free information and the preservation of UAP forensic data. If you would like to help us accelerate the **Physical PDF Synchronization** and cover high-bandwidth hosting costs:
 
-- **BTC**: `YOUR_BTC_ADDRESS_HERE`
-- **ETH**: `YOUR_ETH_ADDRESS_HERE`
+- **BTC**: `bc1qcd9ss5lvv82guqm0dlanu0psw2l6szd64ph0wa
+`
+- **ETH**: `0xC65F86124D18fd5d9F8B44D021911B5EC682A41D
+ `
 
 ---
 
