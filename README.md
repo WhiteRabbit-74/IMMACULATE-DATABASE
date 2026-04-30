@@ -60,6 +60,14 @@ We are looking for data researchers, intelligence analysts, and developers to he
 
 ---
 
+## 🛡️ Support the Disclosure
+This project is a solo effort dedicated to free information and the preservation of UAP forensic data. If you would like to help us accelerate the **Physical PDF Synchronization** and cover high-bandwidth hosting costs:
+
+- **BTC**: `YOUR_BTC_ADDRESS_HERE`
+- **ETH**: `YOUR_ETH_ADDRESS_HERE`
+
+---
+
 ## ⚖️ License
 Information belongs to the people. This project is licensed under open-source standards to ensure the preservation of disclosure data.
 
