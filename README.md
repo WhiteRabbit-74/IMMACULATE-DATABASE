@@ -36,8 +36,6 @@ This project is currently in **ALPHA**. Features are being deployed weekly.
 - [x] 3D Model Rendering Engine
 - [x] Forensic Media Integration
 - [ ] **Phase 2**: Progressive PDF Host (Uploading heavy documents sequentially).
-- [ ] **Phase 3**: Batch Media Ingest Protocol for Admins.
-- [ ] **Phase 4**: Real-time Satellite Anomaly Feeds.
 
 ---
 
