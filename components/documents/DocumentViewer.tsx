@@ -31,6 +31,7 @@ interface DocData {
   fileSize?: number;
   agency: { name: string; colorPrimary: string; colorSecondary: string };
   tags: { name: string }[];
+  stars?: number;
   createdAt: string;
 }
 
