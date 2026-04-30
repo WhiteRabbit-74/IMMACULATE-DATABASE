@@ -25,6 +25,16 @@ const nextConfig = {
     outputFileTracingIncludes: {
       "/*": ["./prisma/**/*"],
     },
+    outputFileTracingExcludes: {
+      "*": [
+        "./public/media/**/*", 
+        "./public/media/video/**/*", 
+        "./public/media/foto/**/*",
+        "./scripts/**/*",
+        "./scratch/**/*",
+        "./artifacts/**/*"
+      ],
+    },
   },
   transpilePackages: ["three", "@react-three/fiber", "@react-three/drei"],
 };
