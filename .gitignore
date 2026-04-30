@@ -38,10 +38,12 @@ next-env.d.ts
 # /prisma/dev.db
 # /prisma/dev.db-journal
 
-# Ignore ALL video files for GitHub compatibility (to avoid lag and size limits)
-public/media/**/*.mp4
-public/media/**/*.mov
-public/media/**/*.avi
+# Ignore only specific oversized files (>100MB) that GitHub rejects
+public/media/video/VIDEO PENTAGONO/Al Taqaddum Object.mp4
+public/media/video/VIDEO PENTAGONO/Middle East Red Balloon 2024.mp4
+public/media/video/VIDEO PENTAGONO/Puerto Rico Objects.mp4
+public/media/video/VIDEO PENTAGONO/Unresolved UAP Report Middle East 2023.mp4
+# Note: All other videos and all photos in /public/media/ are included.
 
 # Ignore local database and large assets
 /prisma/*.db
