@@ -23,7 +23,7 @@ const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: ["pdfjs-dist", "@prisma/client"],
     outputFileTracingIncludes: {
-      "/*": ["./prisma/**/*"],
+      "/*": ["./prisma/**/*", "./dev.db"],
     },
     outputFileTracingExcludes: {
       "*": [
