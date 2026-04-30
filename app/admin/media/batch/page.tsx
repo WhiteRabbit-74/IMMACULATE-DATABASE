@@ -330,7 +330,7 @@ export default function BatchMediaUploadPage() {
                       {/* Status / Remove */}
                       <div className="flex flex-col items-center gap-2 shrink-0">
                         {item.status === "success" && <CheckCircle2 className="w-5 h-5 text-[#00ff00]" />}
-                        {item.status === "error" && <AlertCircle className="w-5 h-5 text-red-500" title={item.error} />}
+                        {item.status === "error" && <AlertCircle className="w-5 h-5 text-red-500" />}
                         {item.status === "uploading" && <Loader2 className="w-5 h-5 text-orange-400 animate-spin" />}
                         {(item.status === "pending" || item.status === "error") && (
                           <button
