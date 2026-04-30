@@ -103,7 +103,7 @@ function DocumentCard({ doc, index }: { doc: Document; index: number }) {
         {/* Header */}
         <div className="flex items-start justify-between mb-4 gap-2">
           <span className="font-mono text-[9px] text-white/30 uppercase tracking-widest leading-tight">
-            <span style={{ color: doc.agency.colorPrimary }} className="group-hover:brightness-125 transition-all">{doc.agency.name}</span>
+            <span style={{ color: doc.agency.colorPrimary }} className="group-hover:brightness-125 transition-all">{doc.agency.slug.toUpperCase()}</span>
             {" // "}
             {doc.year}
           </span>
