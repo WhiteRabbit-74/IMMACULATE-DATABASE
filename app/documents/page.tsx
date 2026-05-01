@@ -164,9 +164,14 @@ export default function DocumentsPage() {
                     { id: "bluebook", label: "Project Blue Book", icon: Star, color: "#00ff00" },
                     { id: "mj12", label: "Majestic-12 Core", icon: ShieldAlert, color: "#ff3333" },
                     { id: "stargate", label: "Project Stargate", icon: Eye, color: "#ffaa00" },
-                    { id: "monarch", label: "Project Monarch", icon: Lock, color: "#aa00ff" },
                     { id: "aquarius", label: "Project Aquarius", icon: Star, color: "#00ffaa" },
-                    { id: "moondust", label: "Operation Moon Dust", icon: Globe, color: "#ff6600" },
+                    { id: "moon-dust", label: "Operation Moon Dust", icon: Globe, color: "#ff6600" },
+                    { id: "aatip", label: "AATIP / AAWSAP", icon: Zap, color: "#00ffff" },
+                    { id: "pounce", label: "Project Pounce", icon: Box, color: "#ff00ff" },
+                    { id: "monarch", label: "Project Monarch", icon: Lock, color: "#aa00ff" },
+                    { id: "gleem", label: "Project Gleem", icon: Target, color: "#ffff00" },
+                    { id: "condign", label: "Project Condign", icon: FileText, color: "#00ff88" },
+                    { id: "horizon", label: "Project Horizon", icon: Globe, color: "#aaaaaa" },
                   ].map((p) => (
                     <button
                       key={p.id}
