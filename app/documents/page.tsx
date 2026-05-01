@@ -159,9 +159,9 @@ export default function DocumentsPage() {
             <div className="font-mono text-[10px] text-white/30 uppercase tracking-widest mb-3">Project_Focus</div>
                 <div className="space-y-1.5 px-2">
                   {[
-                    { id: "sign", label: "Project Sign (1947)", icon: Target, color: "#00aaff" },
-                    { id: "grudge", label: "Project Grudge (1949)", icon: FileText, color: "#ffffff" },
-                    { id: "bluebook", label: "Project Blue Book (1952)", icon: Star, color: "#00ff00" },
+                    { id: "sign", label: "Project Sign", icon: Target, color: "#00aaff" },
+                    { id: "grudge", label: "Project Grudge", icon: FileText, color: "#ffffff" },
+                    { id: "bluebook", label: "Project Blue Book", icon: Star, color: "#00ff00" },
                     { id: "mj12", label: "Majestic-12 Core", icon: ShieldAlert, color: "#ff3333" },
                     { id: "stargate", label: "Project Stargate", icon: Eye, color: "#ffaa00" },
                     { id: "monarch", label: "Project Monarch", icon: Lock, color: "#aa00ff" },
