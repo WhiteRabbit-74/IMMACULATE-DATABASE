@@ -174,5 +174,47 @@ export const BLACK_PROJECTS: BlackProject[] = [
       { year: "1994", event: "First successful deployment of adaptive meta-skin on drone testbed.", name: "SHADOW_FLIGHT" },
       { year: "2004", event: "Tic-Tac incident demonstrates superior NHI optical camouflage.", name: "NIMITZ_ECHO" }
     ] 
+  },
+  { 
+    id: "sign", 
+    name: "Project SIGN", 
+    codename: "PROJECT_SIGN", 
+    type: "UFO", 
+    status: "DECOMMISSIONED", 
+    clearance: "TOP SECRET", 
+    description: "The first official USAF study of UFOs. Originally recommended an extraterrestrial origin for the objects (Estimate of the Situation), which was rejected by higher command.", 
+    objective: "Determine if UFOs were a threat to national security.", 
+    history: [
+      { year: "1947", event: "Establishment of the program at Wright-Patterson AFB.", name: "SIGN_START" },
+      { year: "1948", event: "The controversial 'Estimate of the Situation' document is produced.", name: "ESTIMATE_SIT" }
+    ] 
+  },
+  { 
+    id: "grudge", 
+    name: "Project GRUDGE", 
+    codename: "PROJECT_GRUDGE", 
+    type: "PSYOP", 
+    status: "DECOMMISSIONED", 
+    clearance: "TOP SECRET", 
+    description: "Successor to Project Sign. Notorious for its dismissive attitude towards UFO sightings, often reducing complex cases to weather balloons or mass hysteria.", 
+    objective: "Alleviate public anxiety and debunk UFO sightings.", 
+    history: [
+      { year: "1949", event: "Transition from Sign to Grudge; implementation of debunking protocols.", name: "GRUDGE_INIT" },
+      { year: "1951", event: "Captain Edward J. Ruppelt takes over, leading to the Blue Book transition.", name: "RUPPELT_REFORM" }
+    ] 
+  },
+  { 
+    id: "bluebook", 
+    name: "Project BLUE BOOK", 
+    codename: "BLUE_BOOK", 
+    type: "UFO", 
+    status: "DECOMMISSIONED", 
+    clearance: "TOP SECRET", 
+    description: "The most famous and longest-running USAF UFO study. Analyzed 12,618 sightings, leaving 701 as 'unidentified'.", 
+    objective: "Scientific analysis of UFO data and identification of potential threats.", 
+    history: [
+      { year: "1952", event: "Project Blue Book officially succeeds Project Grudge.", name: "BLUEBOOK_START" },
+      { year: "1969", event: "Termination of the program following the Condon Report findings.", name: "CONDON_END" }
+    ] 
   }
 ];
