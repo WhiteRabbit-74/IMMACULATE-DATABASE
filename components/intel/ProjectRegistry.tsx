@@ -78,7 +78,7 @@ export const BLACK_PROJECTS: BlackProject[] = [
   { id: "dark-star", name: "Operation Dark Star", codename: "STEALTH_UAV", type: "UFO", status: "ACTIVE", clearance: "ULTRA TOP SECRET", description: "Unacknowledged black UAVs.", objective: "Denial-based reconnaissance.", history: [] },
   { id: "orbital-shield", name: "Operation Orbital Shield", codename: "RODS_FROM_GOD", type: "SPACE", status: "ACTIVE", clearance: "ULTRA TOP SECRET", description: "Space-based weaponization.", objective: "Global kinetic strike capability.", history: [] },
   { id: "scanate", name: "Project Scanate", codename: "DEEP_EYE", type: "MIND", status: "DECOMMISSIONED", clearance: "TOP SECRET", description: "Early psychic penetration.", objective: "Remote target mapping.", history: [] },
-  { id: "artichoke", name: "Project Artichoke", codename: "HYPNO_KILL", type: "MIND", status: "DECOMMISSIONED", clearance: "ULTRA TOP SECRET", description: "Hypnotic behavioral control.", objective: "Asset automation.", history: [] },
+  { id: "artichoke", name: "Project Artichoke", codename: "HYPNO_KILL", type: "MIND", status: "DECOMMISSIONED", clearance: "ULTRA TOP SECRET", description: "Hypnotic behavioral control.", objective: "Asset automation.", lineage: "MIND_CONTROL_NEXUS", predecessor: "bluebird", successor: "mk-ultra-v2", history: [] },
   { id: "paperclip", name: "Operation Paperclip", codename: "OVERCAST", type: "PSYOP", status: "DECOMMISSIONED", clearance: "TOP SECRET", description: "Nazi scientist integration.", objective: "Advanced tech acquisition.", history: [] },
   { id: "horizon", name: "Project Horizon", codename: "LUNAR_BASE", type: "SPACE", status: "DECOMMISSIONED", clearance: "TOP SECRET", description: "Moon base plan (1959).", objective: "Lunar military presence.", history: [] },
   { id: "lunex", name: "Project Lunex", codename: "DEEP_CRATER", type: "SPACE", status: "DECOMMISSIONED", clearance: "TOP SECRET", description: "AF moon base alternative.", objective: "Lunar reconnaissance.", history: [] },
@@ -97,12 +97,12 @@ export const BLACK_PROJECTS: BlackProject[] = [
 
   // 10 COVERT / BIO
   { id: "sea-spray", name: "Operation Sea Spray", codename: "SF_BIO", type: "BIO", status: "DECOMMISSIONED", clearance: "TOP SECRET", description: "San Francisco bio-dispersal.", objective: "Population vulnerability test.", history: [] },
-  { id: "mk-ultra-v2", name: "Project MK-Ultra-X", codename: "MIND_HACK", type: "MIND", status: "ACTIVE", clearance: "BEYOND BLACK", description: "Evolved behavioral control.", objective: "Human automation.", history: [] },
+  { id: "mk-ultra-v2", name: "Project MK-Ultra-X", codename: "MIND_HACK", type: "MIND", status: "ACTIVE", clearance: "BEYOND BLACK", description: "Evolved behavioral control.", objective: "Human automation.", lineage: "MIND_CONTROL_NEXUS", predecessor: "artichoke", successor: "stargate", history: [] },
   { id: "lac", name: "Operation LAC", codename: "LARGE_AREA", type: "BIO", status: "DECOMMISSIONED", clearance: "TOP SECRET", description: "Regional bio-simulant dispersal.", objective: "Dispersion mapping.", history: [] },
   { id: "shad", name: "Project SHAD", codename: "SHIP_HAZARD", type: "BIO", status: "DECOMMISSIONED", clearance: "TOP SECRET", description: "Naval chemical tests.", objective: "Crew defense analysis.", history: [] },
   { id: "big-itch", name: "Operation Big Itch", codename: "FLEA_WAR", type: "BIO", status: "DECOMMISSIONED", clearance: "TOP SECRET", description: "Insect vector tests.", objective: "Biological delivery methods.", history: [] },
   { id: "dew", name: "Operation Dew", codename: "TRACE_DUST", type: "BIO", status: "DECOMMISSIONED", clearance: "TOP SECRET", description: "Dust dispersal tests.", objective: "Atmospheric tracking.", history: [] },
-  { id: "bluebird", name: "Project Bluebird", codename: "TRUTH_SERUM", type: "MIND", status: "DECOMMISSIONED", clearance: "TOP SECRET", description: "Early interrogation research.", objective: "Forced confession tech.", history: [] },
+  { id: "bluebird", name: "Project Bluebird", codename: "TRUTH_SERUM", type: "MIND", status: "DECOMMISSIONED", clearance: "TOP SECRET", description: "Early interrogation research.", objective: "Forced confession tech.", lineage: "MIND_CONTROL_NEXUS", successor: "artichoke", history: [] },
   { id: "midnight-climax", name: "Operation Midnight Climax", codename: "LSD_VAULT", type: "MIND", status: "DECOMMISSIONED", clearance: "TOP SECRET", description: "Field testing psychotropics.", objective: "Social engineering.", history: [] },
   { id: "whitecoat", name: "Operation Whitecoat", codename: "BIO_DEFENSE", type: "BIO", status: "DECOMMISSIONED", clearance: "TOP SECRET", description: "Human bio-testing.", objective: "Treatment development.", history: [] },
   { id: "popeye", name: "Operation Popeye", codename: "RAIN_MAKER", type: "PSYOP", status: "DECOMMISSIONED", clearance: "TOP SECRET", description: "Weather warfare.", objective: "Extended monsoon season.", history: [] },
@@ -117,6 +117,8 @@ export const BLACK_PROJECTS: BlackProject[] = [
     clearance: "BEYOND BLACK", 
     description: "Naval operations for the recovery and tracking of Unidentified Submerged Objects (USOs) exhibiting trans-medium travel capabilities.", 
     objective: "Capture and reverse-engineer trans-medium propulsion systems.", 
+    lineage: "TRANS_MEDIUM_OPS",
+    successor: "gossamer",
     history: [
       { year: "1968", event: "USS Scorpion incident correlated with deep-sea anomalies.", name: "VANGUARD_1" },
       { year: "1974", event: "Deployment of specialized deep-ocean acoustic arrays.", name: "SOUND_BARRIER" }
@@ -173,6 +175,8 @@ export const BLACK_PROJECTS: BlackProject[] = [
     clearance: "MAJESTIC", 
     description: "Development and testing of metamaterial skins for optical invisibility and total radar cross-section elimination.", 
     objective: "Achieve 100% multispectral cloaking for next-generation aerospace craft.", 
+    lineage: "TRANS_MEDIUM_OPS",
+    predecessor: "trident",
     history: [
       { year: "1994", event: "First successful deployment of adaptive meta-skin on drone testbed.", name: "SHADOW_FLIGHT" },
       { year: "2004", event: "Tic-Tac incident demonstrates superior NHI optical camouflage.", name: "NIMITZ_ECHO" }
@@ -253,6 +257,8 @@ export const BLACK_PROJECTS: BlackProject[] = [
     clearance: "ULTRA TOP SECRET", 
     description: "Army and CIA program investigating remote viewing and psychic phenomena for military intelligence.", 
     objective: "Utilize anomalous mental phenomena for reconnaissance of high-value targets.", 
+    lineage: "MIND_CONTROL_NEXUS",
+    predecessor: "mk-ultra-v2",
     history: [
       { year: "1978", event: "Project initiated at Fort Meade by SRI International.", name: "REMOTE_ALPHA" },
       { year: "1995", event: "Program transferred to CIA and officially terminated.", name: "STG_END" }

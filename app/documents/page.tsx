@@ -175,11 +175,26 @@ export default function DocumentsPage() {
                     { id: "pounce", label: "Pounce", icon: Box, color: "#ff00ff" },
                   ] 
                 },
+                { 
+                  name: "MIND_CONTROL_NEXUS", 
+                  projects: [
+                    { id: "bluebird", label: "Bluebird", icon: Lock, color: "#ffffff" },
+                    { id: "artichoke", label: "Artichoke", icon: Eye, color: "#ffaa00" },
+                    { id: "mk-ultra-v2", label: "MK-Ultra-X", icon: ShieldAlert, color: "#ff3333" },
+                    { id: "stargate", label: "Stargate", icon: Zap, color: "#00ffff" },
+                  ] 
+                },
+                { 
+                  name: "TRANS_MEDIUM_OPS", 
+                  projects: [
+                    { id: "trident", label: "Trident (USO)", icon: Globe, color: "#00aaff" },
+                    { id: "gossamer", label: "Gossamer", icon: Box, color: "#aaaaaa" },
+                  ] 
+                },
                 {
                   name: "DEEP_BLACK_OPS",
                   projects: [
                     { id: "mj12", label: "MJ-12 Core", icon: ShieldAlert, color: "#ff3333" },
-                    { id: "stargate", label: "Stargate", icon: Eye, color: "#ffaa00" },
                     { id: "moon-dust", label: "Moon Dust", icon: Globe, color: "#ff6600" },
                     { id: "monarch", label: "Monarch", icon: Lock, color: "#aa00ff" },
                     { id: "aatip", label: "AATIP", icon: Zap, color: "#00ffff" },
