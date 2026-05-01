@@ -51,8 +51,9 @@ export default function DocumentsPage() {
   };
 
   useEffect(() => {
-    fetch("/api/agencies").then((r) => r.json()).then(setAgencies).catch(() => {});
-    fetch("/api/tags").then((r) => r.json()).then(setTags).catch(() => {});
+    const t = new Date().getTime();
+    fetch(`/api/agencies?_t=${t}`).then((r) => r.json()).then(setAgencies).catch(() => {});
+    fetch(`/api/tags?_t=${t}`).then((r) => r.json()).then(setTags).catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -64,7 +65,8 @@ export default function DocumentsPage() {
       if (tagFilter) params.set("tag", tagFilter);
       if (projectFocus) params.set("project", projectFocus);
       setLoading(true);
-      fetch(`/api/documents?${params}`)
+      const timestamp = new Date().getTime();
+      fetch(`/api/documents?${params}&_t=${timestamp}`)
         .then(async (r) => {
           if (!r.ok) throw new Error("VAULT_ACCESS_DENIED");
           return r.json();
