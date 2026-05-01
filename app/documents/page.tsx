@@ -37,6 +37,15 @@ export default function DocumentsPage() {
   const [tagFilter, setTagFilter] = useState("");
   const [projectFocus, setProjectFocus] = useState("");
   const [sortBy, setSortBy] = useState<"date" | "stars">("date");
+  const [expandedGroups, setExpandedGroups] = useState<string[]>(["usaf"]); // Default expanded
+
+  const toggleGroup = (groupId: string) => {
+    setExpandedGroups(prev => 
+      prev.includes(groupId) 
+        ? prev.filter(id => id !== groupId) 
+        : [...prev, groupId]
+    );
+  };
 
   const handleStar = async (e: React.MouseEvent, docId: string) => {
     e.preventDefault();
@@ -155,11 +164,13 @@ export default function DocumentsPage() {
             </div>
           </div>
 
+          {/* Project Evolution Lineage (Accordion) */}
           <div>
             <div className="font-mono text-[10px] text-white/30 uppercase tracking-widest mb-3">Project_Evolution_Lineage</div>
-            <div className="space-y-6 px-2">
+            <div className="space-y-2 px-2">
               {[
                 { 
+                  id: 'usaf',
                   name: "USAF_EVOLUTION", 
                   projects: [
                     { id: "sign", label: "Sign", icon: Target, color: "#00aaff" },
@@ -168,6 +179,7 @@ export default function DocumentsPage() {
                   ] 
                 },
                 { 
+                  id: 'mj12',
                   name: "MJ12_NEXUS", 
                   projects: [
                     { id: "gleem", label: "Gleem", icon: Target, color: "#ffff00" },
@@ -176,6 +188,7 @@ export default function DocumentsPage() {
                   ] 
                 },
                 { 
+                  id: 'mind',
                   name: "MIND_CONTROL_NEXUS", 
                   projects: [
                     { id: "bluebird", label: "Bluebird", icon: Lock, color: "#ffffff" },
@@ -185,6 +198,7 @@ export default function DocumentsPage() {
                   ] 
                 },
                 { 
+                  id: 'trans',
                   name: "TRANS_MEDIUM_OPS", 
                   projects: [
                     { id: "trident", label: "Trident (USO)", icon: Globe, color: "#00aaff" },
@@ -192,6 +206,7 @@ export default function DocumentsPage() {
                   ] 
                 },
                 {
+                  id: 'deep',
                   name: "DEEP_BLACK_OPS",
                   projects: [
                     { id: "mj12", label: "MJ-12 Core", icon: ShieldAlert, color: "#ff3333" },
@@ -200,34 +215,60 @@ export default function DocumentsPage() {
                     { id: "aatip", label: "AATIP", icon: Zap, color: "#00ffff" },
                   ]
                 }
-              ].map((group) => (
-                <div key={group.name} className="space-y-2">
-                  <div className="font-mono text-[8px] text-white/20 border-b border-white/5 pb-1 mb-2">{group.name}</div>
-                  <div className="flex flex-col gap-1">
-                    {group.projects.map((p, idx) => (
-                      <div key={p.id} className="flex flex-col">
-                        <button
-                          onClick={() => setProjectFocus(projectFocus === p.id ? "" : p.id)}
-                          className={`w-full flex items-center gap-3 px-3 py-1.5 rounded-lg font-mono text-[10px] uppercase transition-all border ${
-                            projectFocus === p.id 
-                              ? "bg-white/10 border-white/20 text-white" 
-                              : "text-white/40 border-transparent hover:bg-white/5 hover:text-white/60"
-                          }`}
-                          style={projectFocus === p.id ? { color: p.color, borderColor: `${p.color}30`, backgroundColor: `${p.color}10` } : {}}
-                        >
-                          <p.icon className="w-3 h-3" />
-                          {p.label}
-                        </button>
-                        {idx < group.projects.length - 1 && group.name !== "DEEP_BLACK_OPS" && (
-                          <div className="flex justify-center my-0.5">
-                            <ChevronRight className="w-3 h-3 text-white/10 rotate-90" />
-                          </div>
-                        )}
+              ].map((group) => {
+                const isExpanded = expandedGroups.includes(group.id);
+                const hasActiveProject = group.projects.some(p => p.id === projectFocus);
+                
+                return (
+                  <div key={group.id} className="space-y-1">
+                    <button
+                      onClick={() => toggleGroup(group.id)}
+                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg font-mono text-[10px] uppercase transition-all border ${
+                        isExpanded || hasActiveProject ? "bg-white/5 border-white/10 text-white" : "border-transparent text-white/30 hover:bg-white/5"
+                      }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        <Box className={`w-3 h-3 ${isExpanded ? "text-blue-400" : "text-white/20"}`} />
+                        {group.name}
                       </div>
-                    ))}
+                      <ChevronRight className={`w-3 h-3 transition-transform ${isExpanded ? "rotate-90" : ""}`} />
+                    </button>
+                    
+                    <AnimatePresence>
+                      {(isExpanded || hasActiveProject) && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          className="overflow-hidden pl-4 border-l border-white/5 ml-4 space-y-1"
+                        >
+                          {group.projects.map((p, idx) => (
+                            <div key={p.id} className="flex flex-col">
+                              <button
+                                onClick={() => setProjectFocus(projectFocus === p.id ? "" : p.id)}
+                                className={`w-full flex items-center gap-3 px-3 py-1.5 rounded-lg font-mono text-[10px] uppercase transition-all border ${
+                                  projectFocus === p.id 
+                                    ? "bg-white/10 border-white/20 text-white" 
+                                    : "text-white/40 border-transparent hover:bg-white/5 hover:text-white/60"
+                                }`}
+                                style={projectFocus === p.id ? { color: p.color, borderColor: `${p.color}30`, backgroundColor: `${p.color}10` } : {}}
+                              >
+                                <p.icon className="w-3 h-3" />
+                                {p.label}
+                              </button>
+                              {idx < group.projects.length - 1 && group.id !== "deep" && (
+                                <div className="flex justify-center my-0.5">
+                                  <div className="w-[1px] h-2 bg-white/10" />
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
