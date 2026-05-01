@@ -5,7 +5,8 @@ import path from "path";
 // Failsafe: Default to absolute path for local SQLite if DATABASE_URL is missing
 // We use path.resolve(process.cwd()) to ensure Vercel finds the bundled file
 const dbPath = path.resolve(process.cwd(), "prisma", "forensic_v81.db");
-const dbUrl = process.env.DATABASE_URL || `file:${dbPath}`;
+// ABSOLUTE FORCE: Ignore Vercel environment variables, use only the bundled forensic file
+const dbUrl = `file:${dbPath}`;
 
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
 
