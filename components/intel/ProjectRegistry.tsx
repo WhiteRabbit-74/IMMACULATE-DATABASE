@@ -216,5 +216,143 @@ export const BLACK_PROJECTS: BlackProject[] = [
       { year: "1952", event: "Project Blue Book officially succeeds Project Grudge.", name: "BLUEBOOK_START" },
       { year: "1969", event: "Termination of the program following the Condon Report findings.", name: "CONDON_END" }
     ] 
+  },
+  { 
+    id: "aquarius", 
+    name: "Project AQUARIUS", 
+    codename: "PROGRAM_P4", 
+    type: "UFO", 
+    status: "ACTIVE", 
+    clearance: "MAJESTIC", 
+    description: "Umbrella project for the MJ-12 group focusing on EBE communication and biological research.", 
+    objective: "Establish diplomatic and scientific communication with non-human entities.", 
+    history: [
+      { year: "1953", event: "Program initiated as a follow-up to Project Gleem.", name: "AQUARIUS_INIT" },
+      { year: "1966", event: "Establishment of the first communication protocols with EBE-2.", name: "CONTACT_SYNC" }
+    ] 
+  },
+  { 
+    id: "stargate", 
+    name: "Project STARGATE", 
+    codename: "GRILL_FLAME", 
+    type: "MIND", 
+    status: "DECOMMISSIONED", 
+    clearance: "ULTRA TOP SECRET", 
+    description: "Army and CIA program investigating remote viewing and psychic phenomena for military intelligence.", 
+    objective: "Utilize anomalous mental phenomena for reconnaissance of high-value targets.", 
+    history: [
+      { year: "1978", event: "Project initiated at Fort Meade by SRI International.", name: "REMOTE_ALPHA" },
+      { year: "1995", event: "Program transferred to CIA and officially terminated.", name: "STG_END" }
+    ] 
+  },
+  { 
+    id: "moon-dust", 
+    name: "Operation MOON DUST", 
+    codename: "FIELD_RECOVERY", 
+    type: "UFO", 
+    status: "ACTIVE", 
+    clearance: "TOP SECRET", 
+    description: "Specialized unit tasked with the rapid recovery of foreign and non-human aerospace debris globally.", 
+    objective: "Locate and secure crash material before third-party detection.", 
+    history: [
+      { year: "1953", event: "Creation of the specialized recovery teams under USAF.", name: "DUST_START" },
+      { year: "1965", event: "Significant recovery incident in the Kecksburg region.", name: "KECKS_FALL" }
+    ] 
+  },
+  { 
+    id: "pounce", 
+    name: "Project POUNCE", 
+    codename: "TECH_STRIP", 
+    type: "UFO", 
+    status: "ACTIVE", 
+    clearance: "MAJESTIC", 
+    description: "Parallel program to Aquarius focusing specifically on the reverse-engineering of propulsion and energy systems.", 
+    objective: "Replicate anti-gravitational drive systems for terrestrial use.", 
+    history: [
+      { year: "1947", event: "Initiated immediately following the Roswell recovery.", name: "POUNCE_INIT" },
+      { year: "1959", event: "Breakthrough in electro-gravitic field stabilization.", name: "GRAV_LENS" }
+    ] 
+  },
+  { 
+    id: "gleem", 
+    name: "Project GLEEM", 
+    codename: "ORBITAL_EYE", 
+    type: "SPACE", 
+    status: "ACTIVE", 
+    clearance: "BEYOND BLACK", 
+    description: "Deep space and orbital surveillance system designed to detect incoming NHI craft signatures.", 
+    objective: "Provide early warning and spectral tracking of non-terrestrial assets.", 
+    history: [
+      { year: "1953", event: "Initial satellite deployment for infrared anomaly detection.", name: "GLEEM_SYNC" },
+      { year: "2010", event: "Upgrade to quantum sensor arrays in LEO.", name: "EYE_V3" }
+    ] 
+  },
+  { 
+    id: "condign", 
+    name: "Project CONDIGN", 
+    codename: "UK_UAP_STUDY", 
+    type: "UFO", 
+    status: "DECOMMISSIONED", 
+    clearance: "TOP SECRET", 
+    description: "UK Ministry of Defence study on Unidentified Aerial Phenomena (UAP) in the UK Air Defence Region.", 
+    objective: "Assess the potential threat of UAP to UK military operations.", 
+    history: [
+      { year: "1997", event: "Study commissioned by DI55 of the MoD.", name: "CONDIGN_INIT" },
+      { year: "2000", event: "Final report concludes UAP are 'plasma-like' phenomena.", name: "PLASMA_FIND" }
+    ] 
+  },
+  { 
+    id: "magnet", 
+    name: "Project MAGNET", 
+    codename: "GEO_ANOMALY", 
+    type: "UFO", 
+    status: "DECOMMISSIONED", 
+    clearance: "TOP SECRET", 
+    description: "Canadian Department of Transport program to study UFOs and magnetic anomalies.", 
+    objective: "Verify if UFOs utilize magnetic fields for propulsion.", 
+    history: [
+      { year: "1950", event: "Project established by Wilbert B. Smith.", name: "MAGNET_START" },
+      { year: "1954", event: "Closure of the official project, continued as 'Second Story'.", name: "MAGNET_END" }
+    ] 
+  },
+  { 
+    id: "second-story", 
+    name: "Project SECOND STORY", 
+    codename: "RADAR_GHOST", 
+    type: "UFO", 
+    status: "DECOMMISSIONED", 
+    clearance: "TOP SECRET", 
+    description: "Canadian follow-up to Project Magnet, focusing on radar and visual correlation of UFO sightings.", 
+    objective: "Collect and analyze multi-sensor UFO data.", 
+    history: [
+      { year: "1952", event: "Transition from Project Magnet to Second Story.", name: "2ND_STORY_INIT" }
+    ] 
+  },
+  { 
+    id: "horizon", 
+    name: "Project HORIZON", 
+    codename: "LUNAR_OUTPOST", 
+    type: "SPACE", 
+    status: "DECOMMISSIONED", 
+    clearance: "TOP SECRET", 
+    description: "US Army plan to establish a manned, fortified lunar outpost by 1967.", 
+    objective: "Establish military lunar supremacy and monitor orbital traffic.", 
+    history: [
+      { year: "1959", event: "Initial proposal submitted to the Department of the Army.", name: "HORIZON_PROP" }
+    ] 
+  },
+  { 
+    id: "aatip", 
+    name: "AATIP", 
+    codename: "AAWSAP", 
+    type: "UFO", 
+    status: "ACTIVE", 
+    clearance: "TOP SECRET", 
+    description: "Advanced Aerospace Threat Identification Program. Modern Pentagon study of UAPs (The Elizondo era).", 
+    objective: "Investigate unusual aerial phenomena and their technological implications.", 
+    history: [
+      { year: "2007", event: "Program initiated with Senate funding (Harry Reid).", name: "AATIP_INIT" },
+      { year: "2017", event: "Public disclosure of the program via NYT.", name: "NYT_REVEAL" }
+    ] 
   }
 ];

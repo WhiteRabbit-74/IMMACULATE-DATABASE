@@ -186,28 +186,6 @@ export default function DocumentsPage() {
           </div>
 
           <div>
-            <div className="font-mono text-[10px] text-white/30 uppercase tracking-widest mb-3">Agency</div>
-            <div className="space-y-1">
-              <button
-                onClick={() => setAgencyFilter("")}
-                className={`w-full text-left px-3 py-1.5 rounded font-mono text-xs transition-all ${agencyFilter === "" ? "bg-white/10 text-white" : "text-white/40 hover:text-white/70 hover:bg-white/5"}`}
-              >
-                All Agencies
-              </button>
-              {agencies.map((a) => (
-                <button
-                  key={a.id}
-                  onClick={() => setAgencyFilter(a.id)}
-                  className={`w-full text-left px-3 py-1.5 rounded font-mono text-xs flex items-center gap-2 transition-all ${agencyFilter === a.id ? "bg-white/10 text-white" : "text-white/40 hover:text-white/70 hover:bg-white/5"}`}
-                >
-                  <div className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: a.colorPrimary }} />
-                  {a.name}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div>
             <div className="font-mono text-[10px] text-white/30 uppercase tracking-widest mb-3">Document_Type</div>
             <div className="flex flex-col gap-1">
               {[
@@ -253,26 +231,64 @@ export default function DocumentsPage() {
 
       {/* Main Content */}
       <main className="flex-1 p-8 overflow-x-hidden">
-        {/* Quick Stats Header */}
-        <div className="grid grid-cols-4 gap-4 mb-10">
-          {[
-            { label: "Total_Records", value: docs.length, icon: FileText, color: "text-white" },
-            { label: "Classified", value: classified.length, icon: Lock, color: "text-red-500" },
-            { label: "Declassified", value: declassified.length, icon: Unlock, color: "text-[#00ff00]" },
-            { label: "Agencies", value: agencies.length, icon: Globe, color: "text-blue-400" },
-          ].map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-              className="bg-white/[0.02] border border-white/5 rounded-xl p-4 flex flex-col items-center justify-center text-center"
-            >
-              <stat.icon className={`w-4 h-4 mb-2 ${stat.color}`} />
-              <div className="font-mono text-xl font-bold text-white">{stat.value}</div>
-              <div className="font-mono text-[8px] text-white/20 uppercase tracking-widest">{stat.label}</div>
-            </motion.div>
-          ))}
+        {/* Quick Stats & Agency Selector Header */}
+        <div className="flex flex-col gap-6 mb-10">
+          <div className="grid grid-cols-4 gap-4">
+            {[
+              { id: 'total', label: "Total_Records", value: docs.length, icon: FileText, color: "text-white", onClick: () => { setStatusFilter(""); setAgencyFilter(""); setProjectFocus(""); } },
+              { id: 'classified', label: "Classified", value: classified.length, icon: Lock, color: "text-red-500", active: statusFilter === 'classified', onClick: () => setStatusFilter(statusFilter === 'classified' ? '' : 'classified') },
+              { id: 'declassified', label: "Declassified", value: declassified.length, icon: Unlock, color: "text-[#00ff00]", active: statusFilter === 'declassified', onClick: () => setStatusFilter(statusFilter === 'declassified' ? '' : 'declassified') },
+              { id: 'agencies', label: "Agencies", value: agencies.length, icon: Globe, color: "text-blue-400", onClick: () => {} },
+            ].map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                onClick={stat.onClick}
+                className={`group relative bg-white/[0.02] border rounded-xl p-4 flex flex-col items-center justify-center text-center transition-all cursor-pointer ${
+                  stat.active ? "bg-white/10 border-white/20 shadow-[0_0_20px_rgba(255,255,255,0.05)]" : "border-white/5 hover:border-white/10 hover:bg-white/[0.04]"
+                }`}
+              >
+                <stat.icon className={`w-4 h-4 mb-2 transition-transform group-hover:scale-110 ${stat.color}`} />
+                <div className="font-mono text-xl font-bold text-white">{stat.value}</div>
+                <div className="font-mono text-[8px] text-white/20 uppercase tracking-widest">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Integrated Agency Acronym Selector - Home Style Parity */}
+          <div className="bg-white/[0.02] border border-white/5 rounded-xl p-4 overflow-hidden">
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="font-mono text-[9px] text-white/20 uppercase tracking-[0.2em] mr-2">Agency_Nexus:</div>
+              <button
+                onClick={() => setAgencyFilter("")}
+                className={`px-3 py-1 rounded font-mono text-[10px] transition-all border ${agencyFilter === "" ? "bg-white/10 border-white/20 text-white" : "text-white/30 border-transparent hover:text-white/60"}`}
+              >
+                ALL
+              </button>
+              {agencies.map((a: any) => (
+                <motion.button
+                  key={a.id}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setAgencyFilter(a.id)}
+                  className={`flex items-center gap-2 px-3 py-1 rounded font-mono text-[10px] uppercase tracking-wider transition-all border ${
+                    agencyFilter === a.id
+                      ? "bg-white/10 border-white/20 text-white"
+                      : "border-transparent text-white/30 hover:text-white/60 hover:bg-white/5"
+                  }`}
+                  style={agencyFilter === a.id ? { color: a.colorPrimary, borderColor: `${a.colorPrimary}40`, backgroundColor: `${a.colorPrimary}15` } : {}}
+                >
+                  <div
+                    className="w-1.5 h-1.5 rounded-full"
+                    style={{ backgroundColor: a.colorPrimary }}
+                  />
+                  {(a.slug || a.id).toUpperCase()}
+                </motion.button>
+              ))}
+            </div>
+          </div>
         </div>
 
         {loading ? (
