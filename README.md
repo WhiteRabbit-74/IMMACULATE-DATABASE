@@ -49,6 +49,54 @@ The platform has transitioned from Alpha to **BETA STABLE**.
 
 ---
 
+## 🛠️ Tactical Setup & Local Deployment
+To deploy a local forensic instance of the **IMMACULATE DATABASE** for independent research or metadata auditing, follow these procedures:
+
+### Prerequisites
+- **Environment**: Node.js v18.x (LTS) or higher.
+- **Package Manager**: npm v9.x or higher.
+- **Version Control**: Git installed and configured.
+
+### 1. Repository Infiltration
+Clone the intelligence hub to your local workstation:
+```bash
+git clone https://github.com/WhiteRabbit-74/IMMACULATE-DATABASE.git
+cd IMMACULATE-DATABASE
+```
+
+### 2. Dependency Extraction
+Install the required neural packages and forensic modules:
+```bash
+npm install
+```
+
+### 3. Database Synthesis
+Initialize the Prisma ORM and map the forensic schema to the local database:
+```bash
+npx prisma generate
+```
+
+### 4. Environment Parameters
+Create a `.env` file in the root directory. This is critical for authentication and database mapping:
+```env
+# Absolute path to the forensic database
+DATABASE_URL="file:./prisma/forensic_v81.db"
+
+# Security Secret (Generate one for local session management)
+AUTH_SECRET="your-secure-secret-here"
+
+# Local Hub URL
+NEXTAUTH_URL="http://localhost:3000"
+```
+
+### 5. Initialize Local Operations
+```bash
+npm run dev
+```
+The Intelligence Hub will be operational at `http://localhost:3000`.
+
+---
+
 ## 🛡️ Support the Citizen Disclosure
 This project is an independent, non-profit forensic effort. To accelerate the synchronization of the **Physical PDF Vault** and cover the high-bandwidth costs of raw evidence hosting:
 
@@ -57,9 +105,11 @@ This project is an independent, non-profit forensic effort. To accelerate the sy
 
 ---
 
-## 🤝 Community & Nexus
-- **Reddit**: Follow the technical updates on [r/UFOs](https://reddit.com/r/UFOs).
-- **GitHub**: Contribute to the metadata schema or report anomalies.
+## 🤝 Contribution Protocol (Pull Requests)
+We welcome contributions from intelligence analysts, developers, and UI/UX specialists. 
+- **Submit a PR**: If you find a bug or have a feature proposal, submit a Pull Request.
+- **Code Review**: Every contribution is subject to forensic code review before being merged into the master archive.
+- **Maintainer Authority**: Final authority on all merges resides with the project lead (@WhiteRabbit-74).
 
-*"The era of denial is over. The era of forensic evidence has begun."*
+*"The truth is no longer hidden; it is structured, indexed, and available for those who dare to look."*
 🛡️🛰️👽
