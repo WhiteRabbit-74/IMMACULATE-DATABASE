@@ -156,38 +156,64 @@ export default function DocumentsPage() {
           </div>
 
           <div>
-            <div className="font-mono text-[10px] text-white/30 uppercase tracking-widest mb-3">Project_Focus</div>
-                <div className="space-y-1.5 px-2">
-                  {[
-                    { id: "sign", label: "Project Sign", icon: Target, color: "#00aaff" },
-                    { id: "grudge", label: "Project Grudge", icon: FileText, color: "#ffffff" },
-                    { id: "bluebook", label: "Project Blue Book", icon: Star, color: "#00ff00" },
-                    { id: "mj12", label: "Majestic-12 Core", icon: ShieldAlert, color: "#ff3333" },
-                    { id: "stargate", label: "Project Stargate", icon: Eye, color: "#ffaa00" },
-                    { id: "aquarius", label: "Project Aquarius", icon: Star, color: "#00ffaa" },
-                    { id: "moon-dust", label: "Operation Moon Dust", icon: Globe, color: "#ff6600" },
-                    { id: "aatip", label: "AATIP / AAWSAP", icon: Zap, color: "#00ffff" },
-                    { id: "pounce", label: "Project Pounce", icon: Box, color: "#ff00ff" },
-                    { id: "monarch", label: "Project Monarch", icon: Lock, color: "#aa00ff" },
-                    { id: "gleem", label: "Project Gleem", icon: Target, color: "#ffff00" },
-                    { id: "condign", label: "Project Condign", icon: FileText, color: "#00ff88" },
-                    { id: "horizon", label: "Project Horizon", icon: Globe, color: "#aaaaaa" },
-                  ].map((p) => (
-                    <button
-                      key={p.id}
-                      onClick={() => setProjectFocus(projectFocus === p.id ? "" : p.id)}
-                      className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg font-mono text-[10px] uppercase transition-all border ${
-                        projectFocus === p.id 
-                          ? "bg-white/10 border-white/20 text-white" 
-                          : "text-white/40 border-transparent hover:bg-white/5 hover:text-white/60"
-                      }`}
-                      style={projectFocus === p.id ? { color: p.color, borderColor: `${p.color}30`, backgroundColor: `${p.color}10` } : {}}
-                    >
-                      <p.icon className="w-3.5 h-3.5" />
-                      {p.label}
-                    </button>
-                  ))}
+            <div className="font-mono text-[10px] text-white/30 uppercase tracking-widest mb-3">Project_Evolution_Lineage</div>
+            <div className="space-y-6 px-2">
+              {[
+                { 
+                  name: "USAF_EVOLUTION", 
+                  projects: [
+                    { id: "sign", label: "Sign", icon: Target, color: "#00aaff" },
+                    { id: "grudge", label: "Grudge", icon: FileText, color: "#ffffff" },
+                    { id: "bluebook", label: "Blue Book", icon: Star, color: "#00ff00" },
+                  ] 
+                },
+                { 
+                  name: "MJ12_NEXUS", 
+                  projects: [
+                    { id: "gleem", label: "Gleem", icon: Target, color: "#ffff00" },
+                    { id: "aquarius", label: "Aquarius", icon: Star, color: "#00ffaa" },
+                    { id: "pounce", label: "Pounce", icon: Box, color: "#ff00ff" },
+                  ] 
+                },
+                {
+                  name: "DEEP_BLACK_OPS",
+                  projects: [
+                    { id: "mj12", label: "MJ-12 Core", icon: ShieldAlert, color: "#ff3333" },
+                    { id: "stargate", label: "Stargate", icon: Eye, color: "#ffaa00" },
+                    { id: "moon-dust", label: "Moon Dust", icon: Globe, color: "#ff6600" },
+                    { id: "monarch", label: "Monarch", icon: Lock, color: "#aa00ff" },
+                    { id: "aatip", label: "AATIP", icon: Zap, color: "#00ffff" },
+                  ]
+                }
+              ].map((group) => (
+                <div key={group.name} className="space-y-2">
+                  <div className="font-mono text-[8px] text-white/20 border-b border-white/5 pb-1 mb-2">{group.name}</div>
+                  <div className="flex flex-col gap-1">
+                    {group.projects.map((p, idx) => (
+                      <div key={p.id} className="flex flex-col">
+                        <button
+                          onClick={() => setProjectFocus(projectFocus === p.id ? "" : p.id)}
+                          className={`w-full flex items-center gap-3 px-3 py-1.5 rounded-lg font-mono text-[10px] uppercase transition-all border ${
+                            projectFocus === p.id 
+                              ? "bg-white/10 border-white/20 text-white" 
+                              : "text-white/40 border-transparent hover:bg-white/5 hover:text-white/60"
+                          }`}
+                          style={projectFocus === p.id ? { color: p.color, borderColor: `${p.color}30`, backgroundColor: `${p.color}10` } : {}}
+                        >
+                          <p.icon className="w-3 h-3" />
+                          {p.label}
+                        </button>
+                        {idx < group.projects.length - 1 && group.name !== "DEEP_BLACK_OPS" && (
+                          <div className="flex justify-center my-0.5">
+                            <ChevronRight className="w-3 h-3 text-white/10 rotate-90" />
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
                 </div>
+              ))}
+            </div>
           </div>
 
           <div>
@@ -295,6 +321,57 @@ export default function DocumentsPage() {
             </div>
           </div>
         </div>
+
+        {projectFocus && (
+          <div className="mb-8 p-4 bg-white/[0.02] border border-white/5 rounded-xl backdrop-blur-sm">
+            {(() => {
+              const project = BLACK_PROJECTS.find(p => p.id === projectFocus);
+              if (!project) return null;
+              const pred = BLACK_PROJECTS.find(p => p.id === project.predecessor);
+              const succ = BLACK_PROJECTS.find(p => p.id === project.successor);
+              
+              return (
+                <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 bg-white/5 rounded-lg border border-white/10">
+                      <Target className="w-5 h-5 text-white/40" />
+                    </div>
+                    <div>
+                      <div className="font-mono text-[10px] text-white/20 uppercase tracking-[0.2em]">Project_Dossier_Active</div>
+                      <h2 className="text-xl font-bold text-white tracking-tight">{project.name}</h2>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-4 font-mono text-[10px]">
+                    {pred && (
+                      <button 
+                        onClick={() => setProjectFocus(pred.id)}
+                        className="flex items-center gap-2 px-3 py-1.5 rounded border border-white/5 hover:border-white/20 transition-all text-white/40 hover:text-white"
+                      >
+                        <ChevronRight className="w-3 h-3 rotate-180" />
+                        PREV: {pred.name}
+                      </button>
+                    )}
+                    {project.lineage && (
+                      <div className="px-3 py-1.5 rounded bg-white/5 text-white/60 border border-white/10">
+                        LINEAGE: {project.lineage}
+                      </div>
+                    )}
+                    {succ && (
+                      <button 
+                        onClick={() => setProjectFocus(succ.id)}
+                        className="flex items-center gap-2 px-3 py-1.5 rounded border border-white/5 hover:border-white/20 transition-all text-white/40 hover:text-white"
+                      >
+                        NEXT: {succ.name}
+                        <ChevronRight className="w-3 h-3" />
+                      </button>
+                    )}
+                  </div>
+                </div>
+              );
+            })()}
+          </div>
+        )}
 
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">

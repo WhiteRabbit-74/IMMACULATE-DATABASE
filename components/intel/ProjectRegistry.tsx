@@ -10,6 +10,9 @@ export type BlackProject = {
   history: { year: string; event: string; name: string }[];
   description: string;
   objective: string;
+  lineage?: string; // e.g., "USAF_EVOLUTION"
+  predecessor?: string; // id of previous project
+  successor?: string; // id of next project
 };
 
 export const BLACK_PROJECTS: BlackProject[] = [
@@ -184,6 +187,8 @@ export const BLACK_PROJECTS: BlackProject[] = [
     clearance: "TOP SECRET", 
     description: "The first official USAF study of UFOs. Originally recommended an extraterrestrial origin for the objects (Estimate of the Situation), which was rejected by higher command.", 
     objective: "Determine if UFOs were a threat to national security.", 
+    lineage: "USAF_EVOLUTION",
+    successor: "grudge",
     history: [
       { year: "1947", event: "Establishment of the program at Wright-Patterson AFB.", name: "SIGN_START" },
       { year: "1948", event: "The controversial 'Estimate of the Situation' document is produced.", name: "ESTIMATE_SIT" }
@@ -198,6 +203,9 @@ export const BLACK_PROJECTS: BlackProject[] = [
     clearance: "TOP SECRET", 
     description: "Successor to Project Sign. Notorious for its dismissive attitude towards UFO sightings, often reducing complex cases to weather balloons or mass hysteria.", 
     objective: "Alleviate public anxiety and debunk UFO sightings.", 
+    lineage: "USAF_EVOLUTION",
+    predecessor: "sign",
+    successor: "bluebook",
     history: [
       { year: "1949", event: "Transition from Sign to Grudge; implementation of debunking protocols.", name: "GRUDGE_INIT" },
       { year: "1951", event: "Captain Edward J. Ruppelt takes over, leading to the Blue Book transition.", name: "RUPPELT_REFORM" }
@@ -212,6 +220,8 @@ export const BLACK_PROJECTS: BlackProject[] = [
     clearance: "TOP SECRET", 
     description: "The most famous and longest-running USAF UFO study. Analyzed 12,618 sightings, leaving 701 as 'unidentified'.", 
     objective: "Scientific analysis of UFO data and identification of potential threats.", 
+    lineage: "USAF_EVOLUTION",
+    predecessor: "grudge",
     history: [
       { year: "1952", event: "Project Blue Book officially succeeds Project Grudge.", name: "BLUEBOOK_START" },
       { year: "1969", event: "Termination of the program following the Condon Report findings.", name: "CONDON_END" }
@@ -226,6 +236,9 @@ export const BLACK_PROJECTS: BlackProject[] = [
     clearance: "MAJESTIC", 
     description: "Umbrella project for the MJ-12 group focusing on EBE communication and biological research.", 
     objective: "Establish diplomatic and scientific communication with non-human entities.", 
+    lineage: "MJ12_NEXUS",
+    predecessor: "gleem",
+    successor: "pounce",
     history: [
       { year: "1953", event: "Program initiated as a follow-up to Project Gleem.", name: "AQUARIUS_INIT" },
       { year: "1966", event: "Establishment of the first communication protocols with EBE-2.", name: "CONTACT_SYNC" }
@@ -268,6 +281,8 @@ export const BLACK_PROJECTS: BlackProject[] = [
     clearance: "MAJESTIC", 
     description: "Parallel program to Aquarius focusing specifically on the reverse-engineering of propulsion and energy systems.", 
     objective: "Replicate anti-gravitational drive systems for terrestrial use.", 
+    lineage: "MJ12_NEXUS",
+    predecessor: "aquarius",
     history: [
       { year: "1947", event: "Initiated immediately following the Roswell recovery.", name: "POUNCE_INIT" },
       { year: "1959", event: "Breakthrough in electro-gravitic field stabilization.", name: "GRAV_LENS" }
@@ -282,6 +297,8 @@ export const BLACK_PROJECTS: BlackProject[] = [
     clearance: "BEYOND BLACK", 
     description: "Deep space and orbital surveillance system designed to detect incoming NHI craft signatures.", 
     objective: "Provide early warning and spectral tracking of non-terrestrial assets.", 
+    lineage: "MJ12_NEXUS",
+    successor: "aquarius",
     history: [
       { year: "1953", event: "Initial satellite deployment for infrared anomaly detection.", name: "GLEEM_SYNC" },
       { year: "2010", event: "Upgrade to quantum sensor arrays in LEO.", name: "EYE_V3" }
